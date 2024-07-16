@@ -1,12 +1,9 @@
-import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import * as mysql from 'mysql2/promise';
 
-export const typeOrmConfig: TypeOrmModuleOptions = {
-  type: 'mysql',
-  host: 'localhost',
-  port: 3306,
-  username: 'root',
+const mysqlConfig = {
+  user: 'root',
   password: '',
-  database: 'project-api',
-  entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-  synchronize: true,
+  database: 'apic-project',
 };
+
+export const pool = mysql.createPool(mysqlConfig);
