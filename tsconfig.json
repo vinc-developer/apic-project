@@ -22,6 +22,5 @@
       "*": ["node_modules/*"]
     },
     "esModuleInterop": true,
-    "exclude": ["node_modules", "dist"]
   }
 }

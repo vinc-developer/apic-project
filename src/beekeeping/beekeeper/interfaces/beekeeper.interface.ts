@@ -1,4 +1,6 @@
-export interface Apiculteur {
+import { Address } from '../../address/interfaces/address.interface';
+
+export interface Beekeeper {
   id: number;
   lastname: string;
   firstname: string;
@@ -6,4 +8,5 @@ export interface Apiculteur {
   napi: string;
   email: string;
   phone: string;
+  address: Address;
 }
