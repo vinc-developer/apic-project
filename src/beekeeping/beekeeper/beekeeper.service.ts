@@ -1,9 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { BeekeeperRepository } from './beekeeper.repository';
-import { Beekeeper } from './interfaces/beekeeper.interface';
 import { BeekeeperDto } from './dto/beekeeper.dto';
 import { AddressService } from '../address/address.service';
-import { Address } from '../address/interfaces/address.interface';
 import { AddressDto } from '../address/dto/address.dto';
 
 @Injectable()
@@ -13,6 +11,66 @@ export class BeekeeperService {
     private readonly addressService: AddressService,
   ) {}
 
+  /**
+   * Création d'un apiculteur et de son adresse
+   * @param beekeeperDto
+   */
+  async create(beekeeperDto: BeekeeperDto) {
+    try {
+      const address: AddressDto = await this.addressService.create(beekeeperDto.address);
+
+      const [result] = await this.beekeeperRepository.create(beekeeperDto, address.id);
+      const id = (result as any).insertId;
+      if (!id) {
+        throw new HttpException( `Erreur dans la création de l'apiculteur`, HttpStatus.BAD_REQUEST);
+      }
+
+      return {
+        id: id,
+        lastname: beekeeperDto.lastname,
+        firstname: beekeeperDto.firstname,
+        siret: beekeeperDto.siret,
+        napi: beekeeperDto.napi,
+        email: beekeeperDto.email,
+        phone: beekeeperDto.phone,
+        address,
+      } as BeekeeperDto;
+    } catch (err: any) {
+      throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  /**
+   * Mise à jour de l'apiculteur
+   * @param beekeeperDto
+   */
+  async update(beekeeperDto: BeekeeperDto) {
+    try {
+      await this.beekeeperRepository.update(beekeeperDto);
+      return beekeeperDto;
+    } catch (err: any) {
+      throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  /**
+   * Suppression d'un apiculteur et de son adresse
+   * @param id
+   */
+  async delete(id: number) {
+    try {
+      const beekeeper = await this.findOne(id);
+      const [beekeeperDelete] = await this.beekeeperRepository.delete(id);
+      await this.addressService.delete(beekeeper.address.id);
+      return beekeeperDelete;
+    } catch (err: any) {
+      throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  /**
+   * Récupération de tout les apiculteurs
+   */
   async findAll() {
     try {
       const [rows] = await this.beekeeperRepository.findAll();
@@ -22,15 +80,19 @@ export class BeekeeperService {
     }
   }
 
-  async findOne(id: number): Promise<Beekeeper | undefined> {
+  /**
+   * Récupération d'un apiculteur par son id et de sont adresse
+   * @param id
+   */
+  async findOne(id: number) {
     try {
       const [rows] = await this.beekeeperRepository.findOne(id);
       if (!rows) {
         return undefined;
       }
       const row = rows[0];
-      const address: Address = {
-        id: row.address_id,
+      const address: AddressDto = {
+        id: row.id_address,
         street: row.street,
         additional_address: row.additional_address,
         zipcode: row.zipcode,
@@ -47,56 +109,9 @@ export class BeekeeperService {
         email: row.email,
         phone: row.phone,
         address: address,
-      } as Beekeeper;
+      } as BeekeeperDto;
     } catch (err: any) {
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }
-  }
-
-  async create(beekeeperDto: BeekeeperDto) {
-    try {
-      const address: Address = await this.insertAddress(beekeeperDto.address);
-
-      const result = await this.beekeeperRepository.create(beekeeperDto);
-      const id = (result as any).insertId;
-      return {
-        id: id,
-        lastname: beekeeperDto.lastname,
-        firstname: beekeeperDto.firstname,
-        siret: beekeeperDto.siret,
-        napi: beekeeperDto.napi,
-        email: beekeeperDto.napi,
-        phone: beekeeperDto.phone,
-        address,
-      } as Beekeeper;
-    } catch (err: any) {
-      throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
-    }
-  }
-
-  async update(beekeeper: Beekeeper) {
-    try {
-      await this.beekeeperRepository.update(beekeeper);
-      return beekeeper;
-    } catch (err: any) {
-      throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
-    }
-  }
-
-  async delete(id: number) {
-    try {
-      const beekeeper = await this.findOne(id);
-      const [beekeeperDelete] = await this.beekeeperRepository.delete(id);
-      await this.addressService.delete(beekeeper.address.id);
-      return beekeeperDelete;
-    } catch (err: any) {
-      throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
-    }
-  }
-
-  private async insertAddress(addressDto: AddressDto) {
-    const addressResult = await this.addressService.create(addressDto);
-    const id = (addressResult as any).insertId;
-    return { id, ...addressDto };
   }
 }

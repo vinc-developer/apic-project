@@ -1,27 +1,74 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, Res } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpStatus,
+  Param,
+  Post,
+  Put,
+  Res,
+} from '@nestjs/common';
 import { Response } from 'express';
 import { BeekeeperService } from './beekeeper.service';
 import { BeekeeperDto } from './dto/beekeeper.dto';
-import { Beekeeper } from './interfaces/beekeeper.interface';
 
 @Controller('beekeeper')
 export class BeekeeperController {
   constructor(private readonly beekeeperService: BeekeeperService) {}
 
   /**
-   * Récupération de tout les apiculteurs
+   *
+   * @param beekeeperDto
+   * @param res
    */
-  @Get()
-  async findAll() {
+  @Post()
+  async create(@Body() beekeeperDto: BeekeeperDto, @Res() res: Response) {
     try {
-      return await this.beekeeperService.findAll();
+      const beekeeper = await this.beekeeperService.create(beekeeperDto);
+      res.status(HttpStatus.CREATED).json(beekeeper);
     } catch (err: any) {
-      throw new HttpException( `Erreur dans la récupération des apiculteurs : ${err.message}`, HttpStatus.BAD_REQUEST);
+      res.status(HttpStatus.BAD_REQUEST).json({message: `Erreur dans la création de l'apiculteur : ${err.message}`});
     }
   }
 
   /**
-   * Récupération d'un apiculteur par son id
+   *
+   * @param beekeeperDto
+   * @param res
+   */
+  @Put()
+  async update(@Body() beekeeperDto: BeekeeperDto, @Res() res: Response) {
+    try {
+      const beekeeperUpdated = await this.beekeeperService.update(beekeeperDto);
+      res.status(HttpStatus.OK).json(beekeeperUpdated);
+    } catch (err: any) {
+      res.status(HttpStatus.BAD_REQUEST).json({message: `Erreur dans la mise à jour de l'apiculteur : ${err.message}`});
+    }
+  }
+
+  /**
+   *
+   * @param id
+   * @param res
+   */
+  @Delete(':id')
+  async delete(@Param('id') id: string, @Res() res: Response) {
+    const beekeeperId = Number(id);
+    if (isNaN(beekeeperId)) {
+      res.status(HttpStatus.BAD_REQUEST).json({message: 'Identifiant apiculteur invalide'});
+    }
+
+    try {
+      await this.beekeeperService.delete(beekeeperId);
+      res.status(HttpStatus.OK).json({message: 'Apiculteur supprimé avec succès.'});
+    } catch (err: any) {
+      res.status(HttpStatus.BAD_REQUEST).json({message: `Erreur dans la suppression de l'apiculteur : ${err.message}`});
+    }
+  }
+
+  /**
+   *
    * @param id
    * @param res
    */
@@ -33,55 +80,24 @@ export class BeekeeperController {
     }
 
     try {
-      return await this.beekeeperService.findOne(beekeeperId);
+      const beekeeper = await this.beekeeperService.findOne(beekeeperId);
+      res.status(HttpStatus.OK).json(beekeeper);
     } catch (err: any) {
-      throw new HttpException( `Erreur dans la récupération de l'apiculteur : ${err.message}`, HttpStatus.BAD_REQUEST);
+      res.status(HttpStatus.BAD_REQUEST).json({message: `Erreur dans la récupération de l'apiculteur : ${err.message}`});
     }
   }
 
   /**
-   * création d'un apiculteur
-   * @param beekeeperDto
-   */
-  @Post()
-  async create(@Body() beekeeperDto: BeekeeperDto) {
-    try {
-      return await this.beekeeperService.create(beekeeperDto);
-    } catch (err: any) {
-      throw new HttpException(`Erreur dans la création de l'apiculteur : ${err.message}`, HttpStatus.BAD_REQUEST);
-    }
-  }
-
-  /**
-   * Modification d'un apiculteur
-   * @param beekeeper
+   *
    * @param res
    */
-  @Put()
-  async update(@Body() beekeeper: Beekeeper, @Res() res: Response) {
+  @Get()
+  async findAll(@Res() res: Response) {
     try {
-      return await this.beekeeperService.update(beekeeper);
+      const beekeepers = await this.beekeeperService.findAll();
+      res.status(HttpStatus.OK).json(beekeepers);
     } catch (err: any) {
-      res.status(HttpStatus.BAD_REQUEST).json({message: `Erreur dans la mise à jour de l'apiculteur : ${err.message}`});
-    }
-  }
-
-  /**
-   * Suppression d'un apiculeteur
-   * @param id
-   * @param res
-   */
-  @Delete()
-  async delete(@Param('id') id: string, @Res() res: Response) {
-    const beekeeperId = Number(id);
-    if (isNaN(beekeeperId)) {
-      res.status(HttpStatus.BAD_REQUEST).json({message: 'Identifiant apiculteur invalide'});
-    }
-
-    try {
-      return await this.beekeeperService.delete(beekeeperId);
-    } catch (err: any) {
-      res.status(HttpStatus.BAD_REQUEST).json({message: `Erreur dans la suppression ce l'apiculteur : ${err.message}`});
+      res.status(HttpStatus.BAD_REQUEST).json({message: `Erreur dans la récupération des apiculteurs : ${err.message}`});
     }
   }
 }

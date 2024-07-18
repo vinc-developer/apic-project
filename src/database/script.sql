@@ -14,11 +14,11 @@ CREATE TABLE `beekeeper` (
       `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
       `firstname` VARCHAR(150) NOT NULL,
       `lastname` VARCHAR(150) NOT NULL,
-      `siret` VARCHAR(150) NOT NULL,
+      `siret` VARCHAR(150),
       `napi` VARCHAR(150) NOT NULL,
       `email` VARCHAR(150) NOT NULL UNIQUE,
       `phone` VARCHAR(20) NULL,
-      `filename` VARCHAR(250) NOT NULL UNIQUE DEFAULT 'no_picture.png',
+      `filename` VARCHAR(250) NOT NULL DEFAULT 'no_picture.png',
       `id_address` INT NOT NULL
 )Engine = InnoDB;
 

@@ -1,5 +1,4 @@
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
-import { Address } from './interfaces/address.interface';
 import { AddressDto } from './dto/address.dto';
 import { pool } from '../../database/mysql.config';
 
@@ -12,17 +11,10 @@ export class AddressRepository {
 
   private readonly logger: Logger = new Logger(AddressRepository.name);
 
-  async findOne(id: number) {
-    try {
-      return pool.execute(this.SQL_FIND_ONE, [id]);
-    } catch (err: any) {
-      this.logger.error('Error getting address data', err.stack);
-      throw new BadRequestException(
-        `Erreur lors de la récupération des données`,
-      );
-    }
-  }
-
+  /**
+   *
+   * @param addressDto
+   */
   async create(addressDto: AddressDto) {
     try {
       return await pool.execute(this.SQL_INSERT, [
@@ -39,16 +31,20 @@ export class AddressRepository {
     }
   }
 
-  async update(address: Address) {
+  /**
+   *
+   * @param addressDto
+   */
+  async update(addressDto: AddressDto) {
     try {
       return await pool.execute(this.SQL_UPDATE, [
-        address.street,
-        address.additional_address,
-        address.zipcode,
-        address.city,
-        address.state,
-        address.country,
-        address.id,
+        addressDto.street,
+        addressDto.additional_address,
+        addressDto.zipcode,
+        addressDto.city,
+        addressDto.state,
+        addressDto.country,
+        addressDto.id,
       ]);
     } catch (err: any) {
       this.logger.error('Error updating address data', err.stack);
@@ -56,12 +52,31 @@ export class AddressRepository {
     }
   }
 
+  /**
+   *
+   * @param id
+   */
   async delete(id: number) {
     try {
       return pool.execute(this.SQL_DELETE, [id]);
     } catch (err: any) {
       this.logger.error('Error deleting address', err.stack);
       throw new BadRequestException(`Erreur de suppression de l'adresse`);
+    }
+  }
+
+  /**
+   *
+   * @param id
+   */
+  async findOne(id: number) {
+    try {
+      return pool.execute(this.SQL_FIND_ONE, [id]);
+    } catch (err: any) {
+      this.logger.error('Error getting address data', err.stack);
+      throw new BadRequestException(
+        `Erreur lors de la récupération des données`,
+      );
     }
   }
 }
