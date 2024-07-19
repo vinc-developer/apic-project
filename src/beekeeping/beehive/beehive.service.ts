@@ -98,7 +98,13 @@ export class BeehiveService {
           bee_type: beehive.bee_type,
           name: beehive.name,
           type_hive: beehive.type_hive,
-          beeyard: { id: beehive.id_beeyard },
+          beeyard: {
+            id: id,
+            environment: beehive.environment,
+            name: beehive.beeyard_name,
+            beekeeper: { id: beehive.beeyard_name},
+            address: { id: beehive.id_address },
+          },
         } as BeehiveDto);
       }
       return beehives;
@@ -126,7 +132,13 @@ export class BeehiveService {
           bee_type: beehive.bee_type,
           name: beehive.name,
           type_hive: beehive.type_hive,
-          beeyard: { id: beehive.id_beeyard },
+          beeyard: {
+            id: beehive.id_beeyard,
+            environment: beehive.environment,
+            name: beehive.beeyard_name,
+            beekeeper: { id: id },
+            address: { id: beehive.id_address },
+          },
         } as BeehiveDto);
       }
       return beehives;

@@ -57,7 +57,8 @@ ALTER TABLE `honeycrop` ADD CONSTRAINT `fk_honeycrop_beehive` FOREIGN KEY (`id_b
 CREATE TABLE `harvesthoney` (
     `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `date_harvest` DATETIME DEFAULT CURRENT_TIMESTAMP,
-    `total_honey_kg` BIGINT NOT NULL
+    `total_honey_kg` BIGINT NOT NULL,
+    `total_sale_honey_kg` BIGINT NULL
 )Engine = InnoDB;
 
 CREATE TABLE `rel_harvesthoney_honeycrop`(

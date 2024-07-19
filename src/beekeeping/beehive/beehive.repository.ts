@@ -8,13 +8,15 @@ export class BeehiveRepository {
   SQL_UPDATE = `UPDATE beehive SET bee_type = ?, name = ?, type_hive = ?, id_beeyard = ? WHERE id = ?`;
   SQL_DELETE = `DELETE FROM beehive WHERE id = ?`;
   SQL_FIND_ONE = `SELECT * FROM beehive WHERE id = ?`;
-  SQL_FIND_ALL_BY_BEEYARD = `SELECT * FROM beehive bh
-                      INNER JOIN beeyard be ON bh.id_beeyard = be.id
-                      WHERE be.id = ?`;
-  SQL_FIND_ALL_BY_BEEKEEPER = `SELECT * FROM beehive bh
-                      INNER JOIN beeyard be ON bh.id_beeyard = be.id
-                      INNER JOIN beekeeper bk ON be.id_beekeeper = bk.id
-                      WHERE bk.id = ?`;
+  SQL_FIND_ALL_BY_BEEYARD = `SELECT bh.*, be.environment, be.name as beeyard_name, be.id_beekeeper, be.id_address 
+                    FROM beehive bh
+                    INNER JOIN beeyard be ON bh.id_beeyard = be.id
+                    WHERE be.id = ?`;
+  SQL_FIND_ALL_BY_BEEKEEPER = `SELECT bh.*, be.environment, be.name as beeyard_name, be.id_beekeeper, be.id_address 
+                    FROM beehive bh
+                    INNER JOIN beeyard be ON bh.id_beeyard = be.id
+                    INNER JOIN beekeeper bk ON be.id_beekeeper = bk.id
+                    WHERE bk.id = ?`;
 
   private readonly logger = new Logger(BeehiveRepository.name);
 
@@ -64,7 +66,7 @@ export class BeehiveRepository {
       return await pool.execute(this.SQL_DELETE, [id]);
     } catch (err: any) {
       this.logger.error('Error deleting beehive data', err.stack);
-      throw new BadRequestException(`Erreur de suppression des données des données`);
+      throw new BadRequestException( `Erreur de suppression des données des données`);
     }
   }
 
@@ -77,7 +79,7 @@ export class BeehiveRepository {
       return await pool.execute(this.SQL_FIND_ONE, [id]);
     } catch (err: any) {
       this.logger.error('Error getting beehive data', err.stack);
-      throw new BadRequestException(`Erreur lors de la récupération des données`);
+      throw new BadRequestException( `Erreur lors de la récupération des données`);
     }
   }
 
@@ -90,7 +92,7 @@ export class BeehiveRepository {
       return await pool.execute(this.SQL_FIND_ALL_BY_BEEYARD, [id]);
     } catch (err: any) {
       this.logger.error('Error getting by beeyard beehive data', err.stack);
-      throw new BadRequestException(`Erreur lors de la récupération des données`);
+      throw new BadRequestException( `Erreur lors de la récupération des données`);
     }
   }
 
@@ -103,7 +105,7 @@ export class BeehiveRepository {
       return await pool.execute(this.SQL_FIND_ALL_BY_BEEKEEPER, [id]);
     } catch (err: any) {
       this.logger.error('Error getting by beekeeper beehive data', err.stack);
-      throw new BadRequestException(`Erreur lors de la récupération des données`);
+      throw new BadRequestException( `Erreur lors de la récupération des données`);
     }
   }
 }
