@@ -6,15 +6,35 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true, // Retire automatiquement les propriétés non spécifiées dans le DTO
-      forbidNonWhitelisted: true, // Lance une exception si des propriétés non spécifiées sont présentes
-      transform: true, // Transforme le payload en une instance du DTO
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
       exceptionFactory: (errors) => {
-        const errorMessages = errors.map(
-          (err) =>
-            `${err.property} - ${Object.values(err.constraints).join(', ')}`,
-        );
-        return new BadRequestException(errorMessages);
+        console.log('Erreurs de validation reçues:', errors); // Débogage
+
+        if (!errors || !Array.isArray(errors)) {
+          return new BadRequestException('Données invalides');
+        }
+
+        const errorMessages = errors.flatMap((err) => {
+          if (err.children && err.children.length > 0) {
+            // Traiter les erreurs des enfants (par exemple, pour les tableaux)
+            return err.children.flatMap(childError => {
+              if (!childError || !childError.constraints) {
+                return [`${childError.property} - Erreur de validation inconnue`];
+              }
+              return Object.values(childError.constraints).map(constraint => `${childError.property} - ${constraint}`);
+            });
+          }
+
+          // Traiter les erreurs de la propriété actuelle
+          if (!err.constraints) {
+            return [`${err.property} - Erreur de validation inconnue`];
+          }
+          return Object.values(err.constraints).map(constraint => `${err.property} - ${constraint}`);
+        });
+
+        return new BadRequestException(`Erreurs de validation : ${errorMessages.join(', ')}`);
       },
     }),
   );

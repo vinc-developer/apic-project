@@ -4,8 +4,8 @@ import { pool } from '../../../database/mysql.config';
 
 @Injectable()
 export class HoneycropRepository {
-  SQL_INSERT = `INSERT INTO honeycrop SET name = ?, honey_kg = ?, id_beehive = ?`;
-  SQL_UPDATE = `UPDATE honeycrop SET name = ?, honey_kg = ?, id_beehive = ? WHERE id = ?`;
+  SQL_INSERT = `INSERT INTO honeycrop SET name = ?, honey_kg = ?, nb_hausses = ?, id_beehive = ?`;
+  SQL_UPDATE = `UPDATE honeycrop SET name = ?, honey_kg = ?, nb_hausses = ?, id_beehive = ? WHERE id = ?`;
   SQL_DELETE = `DELETE FROM honeycrop WHERE id = ?`;
   SQL_FIND_ONE = `SELECT * FROM honeycrop WHERE id = ?`;
 
@@ -20,6 +20,7 @@ export class HoneycropRepository {
       return await pool.execute(this.SQL_INSERT, [
         honeycropDto.name,
         honeycropDto.honey_kg,
+        honeycropDto.nb_hausses,
         honeycropDto.beehive.id,
       ]);
     } catch (err: any) {
@@ -37,6 +38,7 @@ export class HoneycropRepository {
       return await pool.execute(this.SQL_UPDATE, [
         honeycropDto.name,
         honeycropDto.honey_kg,
+        honeycropDto.nb_hausses,
         honeycropDto.beehive.id,
         honeycropDto.id,
       ]);

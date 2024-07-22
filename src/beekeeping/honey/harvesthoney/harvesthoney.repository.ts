@@ -5,15 +5,15 @@ import { pool } from '../../../database/mysql.config';
 
 @Injectable()
 export class HarvesthoneyRepository {
-  SQL_INSERT = `INSERT INTO harvesthoney SET date_harvest = ?, total_honey_kg = ?, total_honey_kg = ?`;
-  SQL_UPDATE = `UPDATE harvesthoney SET date_harvest = ?, total_honey_kg = ?, total_honey_kg = ? WHERE id = ?`;
+  SQL_INSERT = `INSERT INTO harvesthoney SET date_harvest = ?, total_honey_kg = ?, total_sale_honey_kg = ?, lot_number = ?, storage = ?`;
+  SQL_UPDATE = `UPDATE harvesthoney SET date_harvest = ?, total_honey_kg = ?, total_sale_honey_kg = ?,  lot_number = ?, storage = ? WHERE id = ?`;
   SQL_DELETE = `DELETE FROM harvesthoney WHERE id = ?`;
 
   SQL_INSERT_REL_HARVEST_HONEY = `INSERT INTO rel_harvesthoney_honeycrop SET id_harvesthoney = ?, id_honeycrop = ?`;
   SQL_DELETE_REL_HARVEST_HONEY = `DELETE FROM rel_harvesthoney_honeycrop WHERE id_harvesthoney = ? AND id_honeycrop = ?`;
 
   SQL_FIND_ALL_BY_BEEHIVE = `SELECT hh.*, 
-      hc.id as honeycrop_id, hc.name as honeycrop_name, hc.honey_kg,
+      hc.id as honeycrop_id, hc.name as honeycrop_name, hc.honey_kg, hc.nb_hausses,
       be.id as beehive_id, be.name as beehive_name, be.bee_type, be.type_hive, be.id_beeyard
       FROM harvesthoney hh
       INNER JOIN rel_harvesthoney_honeycrop relhh ON relhh.id_harvesthoney = hh.id
@@ -21,7 +21,7 @@ export class HarvesthoneyRepository {
       INNER JOIN beehive be ON hc.id_beehive = be.id
       WHERE be.id = ?`;
   SQL_FIND_ALL_BY_BEEYARD = `SELECT hh.*, 
-      hc.id as honeycrop_id, hc.name as honeycrop_name, hc.honey_kg,
+      hc.id as honeycrop_id, hc.name as honeycrop_name, hc.honey_kg, hc.nb_hausses,
       be.id as beehive_id, be.name as beehive_name, be.bee_type, be.type_hive,
       bya.id as beeyard_id, bya.environment, bya.name as beeyard_name, bya.id_beekeeper
       FROM harvesthoney hh
@@ -31,7 +31,7 @@ export class HarvesthoneyRepository {
       INNER JOIN beeyard bya ON be.id_beeyard = bya.id
       WHERE bya.id = ?`;
   SQL_FIND_ALL_BY_BEEKEEPER = `SELECT hh.*, 
-      hc.id as honeycrop_id, hc.name as honeycrop_name, hc.honey_kg,
+      hc.id as honeycrop_id, hc.name as honeycrop_name, hc.honey_kg, hc.nb_hausses,
       be.id as beehive_id, be.name as beehive_name, be.bee_type, be.type_hive,
       bya.id as beeyard_id, bya.environment, bya.name as beeyard_name, 
       bk.id as beekeeper_id, bk.firstname, bk.lastname, bk.siret, bk.napi, bk.email, bk.phone, bk.id_address
@@ -55,6 +55,8 @@ export class HarvesthoneyRepository {
         harvesthoneyDto.date_harvest,
         harvesthoneyDto.total_honey_kg,
         harvesthoneyDto.total_sale_honey_kg,
+        harvesthoneyDto.lot_number,
+        harvesthoneyDto.storage,
       ]);
     } catch (err: any) {
       this.logger.error('Error inserting harvesthoney data', err.stack);
@@ -88,6 +90,8 @@ export class HarvesthoneyRepository {
         harvesthoneyDto.date_harvest,
         harvesthoneyDto.total_honey_kg,
         harvesthoneyDto.total_sale_honey_kg,
+        harvesthoneyDto.lot_number,
+        harvesthoneyDto.storage,
         harvesthoneyDto.id,
       ]);
     } catch (err: any) {

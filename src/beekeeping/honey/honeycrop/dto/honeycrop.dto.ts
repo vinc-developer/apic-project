@@ -5,21 +5,22 @@ import { Type } from 'class-transformer';
 
 export class HoneycropDto implements Honeycrop {
   @IsOptional()
-  @ValidateNested({ message: 'la validation échoué' })
-  @IsNumber()
+  @IsNumber({}, { message: 'la validation échoué' })
   id: number;
 
   @IsNotEmpty()
   @IsString({ message: 'la validation échoué' })
   name: string;
 
-  @IsNotEmpty()
-  @ValidateNested({ message: 'la validation échoué' })
+  @IsNotEmpty({ message: 'la validation échoué' })
   @IsNumber()
   honey_kg: number;
 
-  @IsNotEmpty()
-  @ValidateNested({ message: 'la validation échoué' })
+  @IsNotEmpty({ message: 'la validation échoué' })
+  @IsNumber()
+  nb_hausses: number;
+
+  @IsNotEmpty({ message: 'La ruche ne peut pas être vide.' })
   @Type(() => BeehiveDto)
   beehive: BeehiveDto;
 }

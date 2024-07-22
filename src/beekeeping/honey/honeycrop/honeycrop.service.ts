@@ -1,9 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { HoneycropDto } from './dto/honeycrop.dto';
+import { HoneycropRepository } from './honeycrop.repository';
 
 @Injectable()
 export class HoneycropService {
-  constructor(private readonly honeycropService: HoneycropService) {}
+  constructor(private readonly honeycropRepository: HoneycropRepository) {}
 
   /**
    * Création d'une récolte d'une ruche
@@ -11,7 +12,7 @@ export class HoneycropService {
    */
   async create(honeycropDto: HoneycropDto) {
     try {
-      const [result] = await this.honeycropService.create(honeycropDto);
+      const [result] = await this.honeycropRepository.create(honeycropDto);
       const id = (result as any).insertId;
       if (!id) {
         throw new HttpException( `Erreur dans la création de la récolte`, HttpStatus.BAD_REQUEST);
@@ -21,6 +22,7 @@ export class HoneycropService {
         id: id,
         name: honeycropDto.name,
         honey_kg: honeycropDto.honey_kg,
+        nb_hausses: honeycropDto.nb_hausses,
         beehive: honeycropDto.beehive,
       } as HoneycropDto;
     } catch (err: any) {
@@ -34,7 +36,7 @@ export class HoneycropService {
    */
   async update(honeycropDto: HoneycropDto) {
     try {
-      await this.honeycropService.update(honeycropDto);
+      await this.honeycropRepository.update(honeycropDto);
       return honeycropDto;
     } catch (err: any) {
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
@@ -47,7 +49,7 @@ export class HoneycropService {
    */
   async delete(id: number) {
     try {
-      const result = await this.honeycropService.delete(id);
+      const result = await this.honeycropRepository.delete(id);
       return result;
     } catch (err: any) {
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
@@ -60,7 +62,7 @@ export class HoneycropService {
    */
   async findOne(id: number) {
     try {
-      const [rows] = await this.honeycropService.findOne(id);
+      const [rows] = await this.honeycropRepository.findOne(id);
       if (!rows) {
         return undefined;
       }
@@ -70,6 +72,7 @@ export class HoneycropService {
         id: row.id,
         name: row.name,
         honey_kg: row.honey_kg,
+        nb_hausses: row.nb_hausses,
         beehive: {
           id: row.id_beehive,
         },

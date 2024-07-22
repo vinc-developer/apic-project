@@ -4,5 +4,6 @@ export interface Honeycrop {
   id: number;
   name: string;
   honey_kg: number;
+  nb_hausses: number;
   beehive: Beehive;
 }

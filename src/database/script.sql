@@ -49,6 +49,7 @@ CREATE TABLE `honeycrop` (
     `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `name` VARCHAR(150) NOT NULL,
     `honey_kg` BIGINT NOT NULL,
+    `nb_hausses` BIGINT NOT NULL,
     `id_beehive` INT NOT NULL
 )Engine = InnoDB;
 
@@ -58,7 +59,9 @@ CREATE TABLE `harvesthoney` (
     `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `date_harvest` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `total_honey_kg` BIGINT NOT NULL,
-    `total_sale_honey_kg` BIGINT NULL
+    `total_sale_honey_kg` BIGINT NULL,
+    `lot_number` BIGINT NOT NULL,
+    `storage` VARCHAR(150) NOT NULL
 )Engine = InnoDB;
 
 CREATE TABLE `rel_harvesthoney_honeycrop`(
@@ -77,6 +80,9 @@ CREATE TABLE `product` (
     `weight` BIGINT NOT NULL,
     `quantity` BIGINT NOT NULL,
     `quantity_sale` BIGINT NOT NULL,
+    `lot_number` BIGINT NOT NULL,
+    `DLUO` BIGINT NOT NULL,
+    `date_packaging` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `id_harvesthoney` INT NOT NULL
 )Engine = InnoDB;
 
@@ -97,7 +103,7 @@ CREATE TABLE `order` (
     `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `total_price` DOUBLE NOT NULL,
     `date_order` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `status` ENUM('En cours', 'Expedié', 'Livré', 'Terminé') NOT NULL DEFAULT 'En cours'
+    `status` ENUM('En cours', 'Expedié', 'Livré', 'Terminé', 'Echoué') NOT NULL DEFAULT 'En cours'
 )Engine = InnoDB;
 
 CREATE TABLE `order_product` (
