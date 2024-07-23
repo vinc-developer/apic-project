@@ -4,6 +4,12 @@ import { HoneycropService } from '../honeycrop/honeycrop.service';
 import { RelHarvestHoneycropDto } from './dto/relHarvestHoneycropDto.dto';
 import { HarvesthoneyDto } from './dto/harvesthoney.dto';
 import { HoneycropDto } from '../honeycrop/dto/honeycrop.dto';
+import { HarvesthoneyByBeehiveDto } from './dto/harvesthoneyByBeehive.dto';
+import { BeeyardDto } from '../../beeyard/dto/beeyard.dto';
+import { HarvesthoneyByBeeyardDto } from './dto/harvesthoneyByBeeyard.dto';
+import { BeekeeperDto } from '../../beekeeper/dto/beekeeper.dto';
+import { AddressDto } from '../../address/dto/address.dto';
+import { HarvesthoneyByBeekeeperDto } from './dto/harvesthoneyBeBeekeeper.dto';
 
 @Injectable()
 export class HarvesthoneyService {
@@ -23,15 +29,21 @@ export class HarvesthoneyService {
 
       // controle si c'est la première récolte, si oui création du stockage
       if (!id || id === 0) {
-        const [result] = await this.harvesthoneyRepository.create(harvesthoneyDto);
+        const [result] =
+          await this.harvesthoneyRepository.create(harvesthoneyDto);
         id = (result as any).insertId;
         if (!id) {
-          throw new HttpException( `Erreur dans la création de la récolte`, HttpStatus.BAD_REQUEST);
+          throw new HttpException(
+            `Erreur dans la création de la récolte`,
+            HttpStatus.BAD_REQUEST,
+          );
         }
       }
 
       // création de la récolte
-      const honeycrop: HoneycropDto = await this.honeycropService.create(harvesthoneyDto.honeycrops[0]);
+      const honeycrop: HoneycropDto = await this.honeycropService.create(
+        harvesthoneyDto.honeycrops[0],
+      );
 
       // création de la relation entre le stockage et la récolte
       const relHarvesthoney: RelHarvestHoneycropDto = {
@@ -91,9 +103,13 @@ export class HarvesthoneyService {
   async deleteHoneycrop(relHarvestHoneycropDto: RelHarvestHoneycropDto) {
     try {
       // suppression de la relation
-      await this.harvesthoneyRepository.deleteRelHoneycrop(relHarvestHoneycropDto);
+      await this.harvesthoneyRepository.deleteRelHoneycrop(
+        relHarvestHoneycropDto,
+      );
       //suppression de la récolte
-      return await this.honeycropService.delete(relHarvestHoneycropDto.idHoneycrop);
+      return await this.honeycropService.delete(
+        relHarvestHoneycropDto.idHoneycrop,
+      );
     } catch (err: any) {
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }
@@ -105,8 +121,41 @@ export class HarvesthoneyService {
    */
   async findAllByBeehive(idBeehive: number) {
     try {
-      const [rows] = await this.harvesthoneyRepository.findAllByBeehive(idBeehive);
-      console.log(rows);
+      const [rows] =
+        await this.harvesthoneyRepository.findAllByBeehive(idBeehive);
+      if (!rows) {
+        return undefined;
+      }
+
+      const harvestHoneys: HarvesthoneyByBeehiveDto = {
+        id: rows[0].id,
+        date_harvest: rows[0].date_harvest,
+        total_honey_kg: rows[0].total_honey_kg,
+        total_sale_honey_kg: rows[0].total_sale_honey_kg,
+        lot_number: rows[0].lot_number,
+        storage: rows[0].storage,
+        beehive: {
+          id: rows[0].beehive_id,
+          name: rows[0].beehive_name,
+          bee_type: rows[0].bee_type,
+          type_hive: rows[0].type_hive,
+          beeyard: {
+            id: rows[0].id_beeyard,
+          } as BeeyardDto,
+        },
+        honeycrops: [],
+      };
+
+      for (const row of rows as any) {
+        harvestHoneys.honeycrops.push({
+          id: row.honeycrop_id,
+          name: row.honeycrop_name,
+          honey_kg: row.honey_kg,
+          nb_hausses: row.nb_hausses,
+        } as HoneycropDto);
+      }
+
+      return harvestHoneys;
     } catch (err: any) {
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }
@@ -118,8 +167,49 @@ export class HarvesthoneyService {
    */
   async findAllByBeeyard(idBeeyard: number) {
     try {
-      const [rows] = await this.harvesthoneyRepository.findAllByBeehive(idBeeyard);
-      console.log(rows);
+      const [rows] =
+        await this.harvesthoneyRepository.findAllByBeeyard(idBeeyard);
+      if (!rows) {
+        return undefined;
+      }
+
+      const harvestHoneys: HarvesthoneyByBeeyardDto = {
+        id: rows[0].id,
+        date_harvest: rows[0].date_harvest,
+        total_honey_kg: rows[0].total_honey_kg,
+        total_sale_honey_kg: rows[0].total_sale_honey_kg,
+        lot_number: rows[0].lot_number,
+        storage: rows[0].storage,
+        beeyard: {
+          id: rows[0].id_beeyard,
+          name: rows[0].beeyard_name,
+          environment: rows[0].environment,
+          address: {
+            id: rows[0].beeyard_address,
+          } as AddressDto,
+          beekeeper: {
+            id: rows[0].id_beekeeper,
+          } as BeekeeperDto,
+        },
+        honeycrops: [],
+      };
+
+      for (const row of rows as any) {
+        harvestHoneys.honeycrops.push({
+          id: row.honeycrop_id,
+          name: row.honeycrop_name,
+          honey_kg: row.honey_kg,
+          nb_hausses: row.nb_hausses,
+          beehive: {
+            id: row.beehive_id,
+            name: row.beehive_name,
+            bee_type: row.bee_type,
+            type_hive: row.type_hive,
+          },
+        } as HoneycropDto);
+      }
+
+      return harvestHoneys;
     } catch (err: any) {
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }
@@ -131,8 +221,58 @@ export class HarvesthoneyService {
    */
   async findAllByBeekeeper(idBeekeeper: number) {
     try {
-      const [rows] = await this.harvesthoneyRepository.findAllByBeehive(idBeekeeper);
-      console.log(rows);
+      const [rows] =
+        await this.harvesthoneyRepository.findAllByBeekeeper(idBeekeeper);
+      if (!rows) {
+        return undefined;
+      }
+
+      const harvestHoneys: HarvesthoneyByBeekeeperDto = {
+        id: rows[0].id,
+        date_harvest: rows[0].date_harvest,
+        total_honey_kg: rows[0].total_honey_kg,
+        total_sale_honey_kg: rows[0].total_sale_honey_kg,
+        lot_number: rows[0].lot_number,
+        storage: rows[0].storage,
+        beekeeper: {
+          id: rows[0].beekeeper_id,
+          firstname: rows[0].firstname,
+          lastname: rows[0].lastname,
+          siret: rows[0].siret,
+          napi: rows[0].napi,
+          email: rows[0].email,
+          phone: rows[0].phone,
+          address: {
+            id: rows[0].beekeeper_address,
+          } as AddressDto,
+        },
+        honeycrops: [],
+      };
+
+      for (const row of rows as any) {
+        harvestHoneys.honeycrops.push({
+          id: row.honeycrop_id,
+          name: row.honeycrop_name,
+          honey_kg: row.honey_kg,
+          nb_hausses: row.nb_hausses,
+          beehive: {
+            id: row.beehive_id,
+            name: row.beehive_name,
+            bee_type: row.bee_type,
+            type_hive: row.type_hive,
+            beeyard: {
+              id: row.beeyard_id,
+              name: row.beeyard_name,
+              environment: row.environment,
+              address: {
+                id: row.beeyard_address,
+              } as AddressDto,
+            },
+          },
+        } as HoneycropDto);
+      }
+
+      return harvestHoneys;
     } catch (err: any) {
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }

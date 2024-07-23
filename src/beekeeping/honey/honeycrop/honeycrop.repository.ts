@@ -44,7 +44,9 @@ export class HoneycropRepository {
       ]);
     } catch (err: any) {
       this.logger.error('Error updating honeycrop data', err.stack);
-      throw new BadRequestException(`Erreur lors de la mise à jour des données`);
+      throw new BadRequestException(
+        `Erreur lors de la mise à jour des données`,
+      );
     }
   }
 
@@ -57,7 +59,9 @@ export class HoneycropRepository {
       return await pool.execute(this.SQL_DELETE, [id]);
     } catch (err: any) {
       this.logger.error('Error deleting honeycrop data', err.stack);
-      throw new BadRequestException( `Erreur de suppression des données des données`);
+      throw new BadRequestException(
+        `Erreur de suppression des données des données`,
+      );
     }
   }
 
@@ -70,7 +74,9 @@ export class HoneycropRepository {
       return await pool.execute(this.SQL_FIND_ONE, [id]);
     } catch (err: any) {
       this.logger.error('Error getting honeycrop data', err.stack);
-      throw new BadRequestException( `Erreur lors de la récupération des données`);
+      throw new BadRequestException(
+        `Erreur lors de la récupération des données`,
+      );
     }
   }
 }

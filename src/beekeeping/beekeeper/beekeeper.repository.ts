@@ -79,7 +79,9 @@ export class BeekeeperRepository {
       return await pool.execute(this.SQL_FIND_ALL);
     } catch (err: any) {
       this.logger.error('Error getting all beekeeper data', err.stack);
-      throw new BadRequestException( `Erreur lors de la récupération des données`);
+      throw new BadRequestException(
+        `Erreur lors de la récupération des données`,
+      );
     }
   }
 
@@ -92,7 +94,9 @@ export class BeekeeperRepository {
       return await pool.execute(this.SQL_FIND_ONE, [id]);
     } catch (err: any) {
       this.logger.error('Error getting beekeeper data', err.stack);
-      throw new BadRequestException( `Erreur lors de la récupération des données`);
+      throw new BadRequestException(
+        `Erreur lors de la récupération des données`,
+      );
     }
   }
 }

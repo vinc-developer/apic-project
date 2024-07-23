@@ -80,8 +80,13 @@ export class BeeyardRepository {
     try {
       return await pool.execute(this.SQL_FIND_ALL_BEEKEEPER, [id]);
     } catch (err: any) {
-      this.logger.error('Error getting all by beekeeper beeyard data', err.stack);
-      throw new BadRequestException( `Erreur lors de la récupération des données`);
+      this.logger.error(
+        'Error getting all by beekeeper beeyard data',
+        err.stack,
+      );
+      throw new BadRequestException(
+        `Erreur lors de la récupération des données`,
+      );
     }
   }
 
@@ -94,7 +99,9 @@ export class BeeyardRepository {
       return await pool.execute(this.SQL_FIND_ONE, [id]);
     } catch (err: any) {
       this.logger.error('Error getting beeyard data', err.stack);
-      throw new BadRequestException( `Erreur lors de la récupération des données`);
+      throw new BadRequestException(
+        `Erreur lors de la récupération des données`,
+      );
     }
   }
 }

@@ -8,6 +8,10 @@ import { BeeyardModule } from './beekeeping/beeyard/beeyard.module';
 import { BeehiveModule } from './beekeeping/beehive/beehive.module';
 import { HoneycropModule } from './beekeeping/honey/honeycrop/honeycrop.module';
 import { HarvesthoneyModule } from './beekeeping/honey/harvesthoney/harvesthoney.module';
+import { ClientController } from './store/client/client.controller';
+import { ClientService } from './store/client/client.service';
+import { ClientModule } from './store/client/client.module';
+import { ProductModule } from './store/product/product.module';
 
 @Module({
   imports: [
@@ -20,8 +24,10 @@ import { HarvesthoneyModule } from './beekeeping/honey/harvesthoney/harvesthoney
     BeehiveModule,
     HoneycropModule,
     HarvesthoneyModule,
+    ClientModule,
+    ProductModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, ClientController],
+  providers: [AppService, ClientService],
 })
 export class AppModule {}

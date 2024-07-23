@@ -53,7 +53,9 @@ export class BeehiveRepository {
       ]);
     } catch (err: any) {
       this.logger.error('Error updating beehive data', err.stack);
-      throw new BadRequestException(`Erreur de mise à jour des données des données`);
+      throw new BadRequestException(
+        `Erreur de mise à jour des données des données`,
+      );
     }
   }
 
@@ -66,7 +68,9 @@ export class BeehiveRepository {
       return await pool.execute(this.SQL_DELETE, [id]);
     } catch (err: any) {
       this.logger.error('Error deleting beehive data', err.stack);
-      throw new BadRequestException( `Erreur de suppression des données des données`);
+      throw new BadRequestException(
+        `Erreur de suppression des données des données`,
+      );
     }
   }
 
@@ -79,7 +83,9 @@ export class BeehiveRepository {
       return await pool.execute(this.SQL_FIND_ONE, [id]);
     } catch (err: any) {
       this.logger.error('Error getting beehive data', err.stack);
-      throw new BadRequestException( `Erreur lors de la récupération des données`);
+      throw new BadRequestException(
+        `Erreur lors de la récupération des données`,
+      );
     }
   }
 
@@ -92,7 +98,9 @@ export class BeehiveRepository {
       return await pool.execute(this.SQL_FIND_ALL_BY_BEEYARD, [id]);
     } catch (err: any) {
       this.logger.error('Error getting by beeyard beehive data', err.stack);
-      throw new BadRequestException( `Erreur lors de la récupération des données`);
+      throw new BadRequestException(
+        `Erreur lors de la récupération des données`,
+      );
     }
   }
 
@@ -105,7 +113,9 @@ export class BeehiveRepository {
       return await pool.execute(this.SQL_FIND_ALL_BY_BEEKEEPER, [id]);
     } catch (err: any) {
       this.logger.error('Error getting by beekeeper beehive data', err.stack);
-      throw new BadRequestException( `Erreur lors de la récupération des données`);
+      throw new BadRequestException(
+        `Erreur lors de la récupération des données`,
+      );
     }
   }
 }

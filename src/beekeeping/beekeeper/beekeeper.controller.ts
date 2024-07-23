@@ -28,7 +28,9 @@ export class BeekeeperController {
       const beekeeper = await this.beekeeperService.create(beekeeperDto);
       res.status(HttpStatus.CREATED).json(beekeeper);
     } catch (err: any) {
-      res.status(HttpStatus.BAD_REQUEST).json({message: `Erreur dans la création de l'apiculteur : ${err.message}`});
+      res.status(HttpStatus.BAD_REQUEST).json({
+        message: `Erreur dans la création de l'apiculteur : ${err.message}`,
+      });
     }
   }
 
@@ -43,7 +45,9 @@ export class BeekeeperController {
       const beekeeperUpdated = await this.beekeeperService.update(beekeeperDto);
       res.status(HttpStatus.OK).json(beekeeperUpdated);
     } catch (err: any) {
-      res.status(HttpStatus.BAD_REQUEST).json({message: `Erreur dans la mise à jour de l'apiculteur : ${err.message}`});
+      res.status(HttpStatus.BAD_REQUEST).json({
+        message: `Erreur dans la mise à jour de l'apiculteur : ${err.message}`,
+      });
     }
   }
 
@@ -56,14 +60,20 @@ export class BeekeeperController {
   async delete(@Param('id') id: string, @Res() res: Response) {
     const beekeeperId = Number(id);
     if (isNaN(beekeeperId)) {
-      res.status(HttpStatus.BAD_REQUEST).json({message: 'Identifiant apiculteur invalide'});
+      res
+        .status(HttpStatus.BAD_REQUEST)
+        .json({ message: 'Identifiant apiculteur invalide' });
     }
 
     try {
       await this.beekeeperService.delete(beekeeperId);
-      res.status(HttpStatus.OK).json({message: 'Apiculteur supprimé avec succès.'});
+      res
+        .status(HttpStatus.OK)
+        .json({ message: 'Apiculteur supprimé avec succès.' });
     } catch (err: any) {
-      res.status(HttpStatus.BAD_REQUEST).json({message: `Erreur dans la suppression de l'apiculteur : ${err.message}`});
+      res.status(HttpStatus.BAD_REQUEST).json({
+        message: `Erreur dans la suppression de l'apiculteur : ${err.message}`,
+      });
     }
   }
 
@@ -76,14 +86,18 @@ export class BeekeeperController {
   async findOne(@Param('id') id: string, @Res() res: Response) {
     const beekeeperId = Number(id);
     if (isNaN(beekeeperId)) {
-      res.status(HttpStatus.BAD_REQUEST).json({message: 'Identifiant apiculteur invalide'});
+      res
+        .status(HttpStatus.BAD_REQUEST)
+        .json({ message: 'Identifiant apiculteur invalide' });
     }
 
     try {
       const beekeeper = await this.beekeeperService.findOne(beekeeperId);
       res.status(HttpStatus.OK).json(beekeeper);
     } catch (err: any) {
-      res.status(HttpStatus.BAD_REQUEST).json({message: `Erreur dans la récupération de l'apiculteur : ${err.message}`});
+      res.status(HttpStatus.BAD_REQUEST).json({
+        message: `Erreur dans la récupération de l'apiculteur : ${err.message}`,
+      });
     }
   }
 
@@ -97,7 +111,9 @@ export class BeekeeperController {
       const beekeepers = await this.beekeeperService.findAll();
       res.status(HttpStatus.OK).json(beekeepers);
     } catch (err: any) {
-      res.status(HttpStatus.BAD_REQUEST).json({message: `Erreur dans la récupération des apiculteurs : ${err.message}`});
+      res.status(HttpStatus.BAD_REQUEST).json({
+        message: `Erreur dans la récupération des apiculteurs : ${err.message}`,
+      });
     }
   }
 }

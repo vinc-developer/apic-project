@@ -15,7 +15,10 @@ export class BeehiveService {
       const [result] = await this.beehiveRepository.create(beehiveDto);
       const id = (result as any).insertId;
       if (!id) {
-        throw new HttpException( `Erreur dans la création de la ruche`, HttpStatus.BAD_REQUEST);
+        throw new HttpException(
+          `Erreur dans la création de la ruche`,
+          HttpStatus.BAD_REQUEST,
+        );
       }
 
       return {
@@ -102,7 +105,7 @@ export class BeehiveService {
             id: id,
             environment: beehive.environment,
             name: beehive.beeyard_name,
-            beekeeper: { id: beehive.beeyard_name},
+            beekeeper: { id: beehive.beeyard_name },
             address: { id: beehive.id_address },
           },
         } as BeehiveDto);

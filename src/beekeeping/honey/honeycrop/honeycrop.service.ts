@@ -15,7 +15,10 @@ export class HoneycropService {
       const [result] = await this.honeycropRepository.create(honeycropDto);
       const id = (result as any).insertId;
       if (!id) {
-        throw new HttpException( `Erreur dans la création de la récolte`, HttpStatus.BAD_REQUEST);
+        throw new HttpException(
+          `Erreur dans la création de la récolte`,
+          HttpStatus.BAD_REQUEST,
+        );
       }
 
       return {

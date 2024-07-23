@@ -17,12 +17,20 @@ export class BeeyardService {
    */
   async create(beeyardDto: BeeyardDto) {
     try {
-      const addressDto: AddressDto = await this.addressService.create(beeyardDto.address);
+      const addressDto: AddressDto = await this.addressService.create(
+        beeyardDto.address,
+      );
 
-      const [result] = await this.beeyardRepository.create(beeyardDto, addressDto.id);
+      const [result] = await this.beeyardRepository.create(
+        beeyardDto,
+        addressDto.id,
+      );
       const id = (result as any).insertId;
       if (!id) {
-        throw new HttpException( `Erreur dans la création du rucher`, HttpStatus.BAD_REQUEST);
+        throw new HttpException(
+          `Erreur dans la création du rucher`,
+          HttpStatus.BAD_REQUEST,
+        );
       }
 
       return {

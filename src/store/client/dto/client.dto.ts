@@ -1,3 +1,4 @@
+import { Client } from '../interfaces/client.interface';
 import {
   IsEmail,
   IsNotEmpty,
@@ -7,11 +8,10 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
-import { AddressDto } from '../../address/dto/address.dto';
 import { Type } from 'class-transformer';
-import { Beekeeper } from '../interfaces/beekeeper.interface';
+import { AddressDto } from '../../../beekeeping/address/dto/address.dto';
 
-export class BeekeeperDto implements Beekeeper {
+export class ClientDto implements Client {
   @IsOptional()
   @IsNumber()
   id: number;
@@ -23,14 +23,6 @@ export class BeekeeperDto implements Beekeeper {
   @IsNotEmpty()
   @IsString({ message: 'la validation échoué' })
   lastname: string;
-
-  @IsOptional()
-  @IsString({ message: 'la validation a échoué' })
-  siret: string;
-
-  @IsNotEmpty()
-  @IsString({ message: 'la validation échoué' })
-  napi: string;
 
   @IsNotEmpty()
   @IsEmail({}, { message: 'la validation échoué' })

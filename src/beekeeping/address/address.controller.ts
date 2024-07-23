@@ -1,4 +1,12 @@
-import { Body, Controller, Get, HttpStatus, Param, Put, Res } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Get,
+  HttpStatus,
+  Param,
+  Put,
+  Res,
+} from '@nestjs/common';
 import { AddressService } from './address.service';
 import { Response } from 'express';
 import { AddressDto } from './dto/address.dto';
@@ -18,7 +26,9 @@ export class AddressController {
       await this.addressService.update(addressDto);
       res.status(HttpStatus.OK).json(addressDto);
     } catch (err: any) {
-      res.status(HttpStatus.BAD_REQUEST).json({message: `Erreur dans la mise à jour de l'address : ${err.message}`});
+      res.status(HttpStatus.BAD_REQUEST).json({
+        message: `Erreur dans la mise à jour de l'address : ${err.message}`,
+      });
     }
   }
 
@@ -31,14 +41,18 @@ export class AddressController {
   async findOne(@Param('id') id: string, @Res() res: Response) {
     const addressId = Number(id);
     if (isNaN(addressId)) {
-      res.status(HttpStatus.BAD_REQUEST).json({message: 'Identifiant adresse invalide'});
+      res
+        .status(HttpStatus.BAD_REQUEST)
+        .json({ message: 'Identifiant adresse invalide' });
     }
 
     try {
       const address = await this.addressService.findOne(addressId);
       res.status(HttpStatus.OK).json(address);
     } catch (err: any) {
-      res.status(HttpStatus.BAD_REQUEST).json({message: `Erreur dans la récupération de l'adresse : ${err.message}`});
+      res.status(HttpStatus.BAD_REQUEST).json({
+        message: `Erreur dans la récupération de l'adresse : ${err.message}`,
+      });
     }
   }
 }

@@ -76,12 +76,12 @@ ALTER TABLE `rel_harvesthoney_honeycrop` ADD CONSTRAINT `fk_harvesthoney_honeycr
 CREATE TABLE `product` (
     `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `price` DOUBLE NOT NULL,
-    `type` ENUM('Pot', 'Sachet') NOT NULL DEFAULT 'Pot',
+    `type` ENUM('POT', 'SACHET') NOT NULL DEFAULT 'POT',
     `weight` BIGINT NOT NULL,
     `quantity` BIGINT NOT NULL,
-    `quantity_sale` BIGINT NOT NULL,
+    `quantity_sale` BIGINT NULL,
     `lot_number` BIGINT NOT NULL,
-    `DLUO` BIGINT NOT NULL,
+    `DLUO` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `date_packaging` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `id_harvesthoney` INT NOT NULL
 )Engine = InnoDB;

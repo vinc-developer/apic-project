@@ -17,12 +17,20 @@ export class BeekeeperService {
    */
   async create(beekeeperDto: BeekeeperDto) {
     try {
-      const address: AddressDto = await this.addressService.create(beekeeperDto.address);
+      const address: AddressDto = await this.addressService.create(
+        beekeeperDto.address,
+      );
 
-      const [result] = await this.beekeeperRepository.create(beekeeperDto, address.id);
+      const [result] = await this.beekeeperRepository.create(
+        beekeeperDto,
+        address.id,
+      );
       const id = (result as any).insertId;
       if (!id) {
-        throw new HttpException( `Erreur dans la création de l'apiculteur`, HttpStatus.BAD_REQUEST);
+        throw new HttpException(
+          `Erreur dans la création de l'apiculteur`,
+          HttpStatus.BAD_REQUEST,
+        );
       }
 
       return {

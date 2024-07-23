@@ -15,7 +15,10 @@ export class AddressService {
       const [result] = await this.addressRepository.create(addressDto);
       const id = (result as any).insertId;
       if (!id) {
-        throw new HttpException( `Erreur dans la création de l'adresse`, HttpStatus.BAD_REQUEST);
+        throw new HttpException(
+          `Erreur dans la création de l'adresse`,
+          HttpStatus.BAD_REQUEST,
+        );
       }
 
       return { id, ...addressDto };
