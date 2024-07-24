@@ -25,7 +25,7 @@ export class ProductRepository {
                       INNER JOIN beekeeper bk ON bya.id_beekeeper = bk.id
                       WHERE bk.id = ?`;
 
-  GET_TRACKING_PRODUCT = `SELECT p.*,
+  /*GET_TRACKING_PRODUCT = `SELECT p.*,
                      h.id as harvesthoney_id, h.date_harvest, h.total_honey_kg, h.total_sale_honey_kg, h.lot_number as harvesthoney_lot_number, h.storage,
                      hc.id as honeycrop_id, hc.name as honeycrop_name, hc.honey_kg, hc.nb_hausses,
                      be.id as beehive_id, be.name as beehive_name, be.bee_type, be.type_hive,
@@ -38,7 +38,73 @@ export class ProductRepository {
                      INNER JOIN beehive be ON hc.id_beehive = be.id
                      INNER JOIN beeyard bya ON be.id_beeyard = bya.id
                      INNER JOIN beekeeper bk ON bya.id_beekeeper = bk.id 
-                     WHERE p.id = ?`;
+                     WHERE p.id = ?`;*/
+
+  GET_TRACKING_PRODUCT = `SELECT
+    p.*,
+    h.id as harvesthoney_id, h.date_harvest, h.total_honey_kg, h.total_sale_honey_kg, h.lot_number as harvesthoney_lot_number, h.storage,
+    (SELECT
+        JSON_ARRAYAGG(
+                JSON_OBJECT(
+                        'honeycrop_id', hc.id,
+                        'honeycrop_name', hc.name,
+                        'honey_kg', hc.honey_kg,
+                        'nb_hausses', hc.nb_hausses,
+                        'beehive', JSON_OBJECT(
+                                'beehive_id', be.id,
+                                'beehive_name', be.name,
+                                'bee_type', be.bee_type,
+                                'type_hive', be.type_hive
+                       ),
+                        'beeyard', JSON_OBJECT(
+                                'beeyard_id', bya.id,
+                                'environment', bya.environment,
+                                'beeyard_name', bya.name
+                       ),
+                        'address_beeyard', JSON_OBJECT(
+                                'address_id', a.id,
+                                'street', a.street,
+                                'additional_address', a.additional_address,
+                                'zipcode', a.zipcode,
+                                'city', a.city,
+                                'state', a.state,
+                                'country', a.country
+                         ),
+                        'beekeeper', JSON_OBJECT(
+                                'beekeeper_id', bk.id,
+                                'firstname', bk.firstname,
+                                'lastname', bk.lastname,
+                                'siret', bk.siret,
+                                'napi', bk.napi,
+                                'email', bk.email,
+                                'phone', bk.phone,
+                                'beekeeper_address', bk.id_address
+                         ),
+                        'address_beekeeper', JSON_OBJECT(
+                                'address_id', ab.id,
+                                'street', ab.street,
+                                'additional_address', ab.additional_address,
+                                'zipcode', ab.zipcode,
+                                'city', ab.city,
+                                'state', ab.state,
+                                'country', ab.country
+                       )
+                )
+        
+    )
+    FROM rel_harvesthoney_honeycrop AS relhh
+    INNER JOIN honeycrop hc ON hc.id = relhh.id_honeycrop
+    INNER JOIN beehive be ON hc.id_beehive = be.id
+    INNER JOIN beeyard bya ON be.id_beeyard = bya.id
+    INNER JOIN address a ON bya.id_address = a.id
+    INNER JOIN beekeeper bk ON bya.id_beekeeper = bk.id
+    INNER JOIN address ab ON bk.id_address = ab.id
+    WHERE relhh.id_harvesthoney = h.id
+  ) AS honeycrops
+  FROM product p
+  INNER JOIN harvesthoney h ON p.id_harvesthoney = h.id
+  WHERE p.id = ?;
+`;
 
   private readonly logger = new Logger(ProductRepository.name);
 

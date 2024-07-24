@@ -1,5 +1,12 @@
 import { Harvesthoney } from '../interfaces/harvesthoney.interface';
-import { IsDate, IsNotEmpty, IsNumber, IsOptional, IsString, ValidateNested } from "class-validator";
+import {
+  IsDate,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 import { HoneycropDto } from '../../honeycrop/dto/honeycrop.dto';
 
@@ -30,7 +37,7 @@ export class HarvesthoneyDto implements Harvesthoney {
   storage: string;
 
   @IsNotEmpty({ message: 'Les récoltes de miel ne peuvent pas être vides.' })
-  @ValidateNested({each: true, message: 'la validation échoué' })
+  @ValidateNested({ each: true, message: 'la validation échoué' })
   @Type(() => HoneycropDto)
   honeycrops: HoneycropDto[] = [];
 }

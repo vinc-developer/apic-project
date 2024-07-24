@@ -101,10 +101,14 @@ ALTER TABLE `client` ADD CONSTRAINT `fk_client_address` FOREIGN KEY (`id_address
 
 CREATE TABLE `order` (
     `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `order_number` VARCHAR(150) NOT NULL,
     `total_price` DOUBLE NOT NULL,
-    `date_order` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `status` ENUM('En cours', 'Expedié', 'Livré', 'Terminé', 'Echoué') NOT NULL DEFAULT 'En cours'
-)Engine = InnoDB;
+    `order_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `status` ENUM('En Attente', 'Validé', 'En cours', 'Terminé', 'Annulé', 'Echec') NOT NULL DEFAULT 'En Attente',
+    `id_client` INT NOT NULL
+ )Engine = InnoDB;
+
+ALTER TABLE `order` ADD CONSTRAINT `fk_client_order` FOREIGN KEY (`id_client`) REFERENCES `client`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 CREATE TABLE `order_product` (
     `id_order` INT NOT NULL,
@@ -116,11 +120,12 @@ ALTER TABLE `order_product` ADD PRIMARY KEY (`id_order`,`id_product`);
 ALTER TABLE `order_product` ADD CONSTRAINT `fk_order_product` FOREIGN KEY (`id_order`) REFERENCES `order`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE `order_product` ADD CONSTRAINT `fk_product_order` FOREIGN KEY (`id_product`) REFERENCES `product`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
-CREATE TABLE `order_client` (
-    `id_order` INT NOT NULL,
-    `id_client` INT NOT NULL
+CREATE TABLE `payment` (
+    `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `payment_description` VARCHAR(150) NOT NULL,
+    `payment_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `status` ENUM('En Attente', 'Payé', 'Echec') NOT NULL DEFAULT 'En Attente',
+    `id_order` INT NOT NULL
 )Engine = InnoDB;
 
-ALTER TABLE `order_client` ADD PRIMARY KEY (`id_order`,`id_client`);
-ALTER TABLE `order_client` ADD CONSTRAINT `fk_order_client` FOREIGN KEY (`id_order`) REFERENCES `order`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE `order_client` ADD CONSTRAINT `fk_client_order` FOREIGN KEY (`id_client`) REFERENCES `client`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `payment` ADD CONSTRAINT `fk_payment_order` FOREIGN KEY (`id_order`) REFERENCES `order`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;

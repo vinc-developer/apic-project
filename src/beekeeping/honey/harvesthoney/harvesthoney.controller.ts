@@ -39,7 +39,7 @@ export class HarvesthoneyController {
       res.status(HttpStatus.OK).json(harvesthonay);
     } catch (err: any) {
       res.status(HttpStatus.BAD_REQUEST).json({
-        message: `Erreur dans la mise a jour de la récolte : ${err.message}`,
+        message: `Erreur dans la création de la récolte : ${err.message}`,
       });
     }
   }
