@@ -1,0 +1,1402 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>bee api&#x27;c project documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">bee api&#x27;c project documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >ProductRepository</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/store/product/product.repository.ts</code>
+        </p>
+
+
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#FIND_ALL" >FIND_ALL</a>
+                            </li>
+                            <li>
+                                <a href="#FIND_ALL_BY_BEEKEEPER" >FIND_ALL_BY_BEEKEEPER</a>
+                            </li>
+                            <li>
+                                <a href="#FIND_ALL_BY_HARVESTHONEY" >FIND_ALL_BY_HARVESTHONEY</a>
+                            </li>
+                            <li>
+                                <a href="#FIND_ONE" >FIND_ONE</a>
+                            </li>
+                            <li>
+                                <a href="#GET_TRACKING_PRODUCT" >GET_TRACKING_PRODUCT</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#logger" >logger</a>
+                            </li>
+                            <li>
+                                <a href="#SQL_DELETE" >SQL_DELETE</a>
+                            </li>
+                            <li>
+                                <a href="#SQL_INSERT" >SQL_INSERT</a>
+                            </li>
+                            <li>
+                                <a href="#SQL_UPDATE" >SQL_UPDATE</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#create" >create</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#delete" >delete</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#findAll" >findAll</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#findAllByBeekeeper" >findAllByBeekeeper</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#findAllByHarvesthoney" >findAllByHarvesthoney</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#findOne" >findOne</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getTracking" >getTracking</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#update" >update</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="create"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>create</b></span>
+                        <a href="#create"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>create(productDto: <a href="../classes/ProductDto.html" target="_self">ProductDto</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="115"
+                                    class="link-to-prism">src/store/product/product.repository.ts:115</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>productDto</td>
+                                            <td>
+                                                            <code><a href="../classes/ProductDto.html" target="_self" >ProductDto</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="delete"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>delete</b></span>
+                        <a href="#delete"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>delete(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="164"
+                                    class="link-to-prism">src/store/product/product.repository.ts:164</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="findAll"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>findAll</b></span>
+                        <a href="#findAll"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>findAll()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="190"
+                                    class="link-to-prism">src/store/product/product.repository.ts:190</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="findAllByBeekeeper"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>findAllByBeekeeper</b></span>
+                        <a href="#findAllByBeekeeper"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>findAllByBeekeeper(idBeekeeper: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="225"
+                                    class="link-to-prism">src/store/product/product.repository.ts:225</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>idBeekeeper</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="findAllByHarvesthoney"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>findAllByHarvesthoney</b></span>
+                        <a href="#findAllByHarvesthoney"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>findAllByHarvesthoney(idHarvesthoney: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="205"
+                                    class="link-to-prism">src/store/product/product.repository.ts:205</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>idHarvesthoney</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="findOne"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>findOne</b></span>
+                        <a href="#findOne"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>findOne(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="179"
+                                    class="link-to-prism">src/store/product/product.repository.ts:179</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getTracking"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>getTracking</b></span>
+                        <a href="#getTracking"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getTracking(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="240"
+                                    class="link-to-prism">src/store/product/product.repository.ts:240</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="update"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>update</b></span>
+                        <a href="#update"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>update(productDto: <a href="../classes/ProductDto.html" target="_self">ProductDto</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="138"
+                                    class="link-to-prism">src/store/product/product.repository.ts:138</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>productDto</td>
+                                            <td>
+                                                            <code><a href="../classes/ProductDto.html" target="_self" >ProductDto</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="FIND_ALL"></a>
+                    <span class="name">
+                        <span ><b>FIND_ALL</b></span>
+                        <a href="#FIND_ALL"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x60;SELECT * FROM product&#x60;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/store/product/product.repository.ts:12</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="FIND_ALL_BY_BEEKEEPER"></a>
+                    <span class="name">
+                        <span ><b>FIND_ALL_BY_BEEKEEPER</b></span>
+                        <a href="#FIND_ALL_BY_BEEKEEPER"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x60;SELECT DISTINCT p.* 
+                      FROM product p 
+                      INNER JOIN harvesthoney h ON p.id_harvesthoney &#x3D; h.id
+                      INNER JOIN rel_harvesthoney_honeycrop relhh ON relhh.id_harvesthoney &#x3D; h.id
+                      INNER JOIN honeycrop hc ON relhh.id_honeycrop &#x3D; hc.id
+                      INNER JOIN beehive be ON hc.id_beehive &#x3D; be.id
+                      INNER JOIN beeyard bya ON be.id_beeyard &#x3D; bya.id
+                      INNER JOIN beekeeper bk ON bya.id_beekeeper &#x3D; bk.id
+                      WHERE bk.id &#x3D; ?&#x60;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/store/product/product.repository.ts:18</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="FIND_ALL_BY_HARVESTHONEY"></a>
+                    <span class="name">
+                        <span ><b>FIND_ALL_BY_HARVESTHONEY</b></span>
+                        <a href="#FIND_ALL_BY_HARVESTHONEY"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x60;SELECT DISTINCT p.* 
+                      FROM product p 
+                      INNER JOIN harvesthoney h ON p.id_harvesthoney &#x3D; h.id
+                      WHERE h.id &#x3D; ?&#x60;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/store/product/product.repository.ts:13</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="FIND_ONE"></a>
+                    <span class="name">
+                        <span ><b>FIND_ONE</b></span>
+                        <a href="#FIND_ONE"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x60;SELECT * FROM product WHERE id &#x3D; ?&#x60;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/store/product/product.repository.ts:11</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="GET_TRACKING_PRODUCT"></a>
+                    <span class="name">
+                        <span ><b>GET_TRACKING_PRODUCT</b></span>
+                        <a href="#GET_TRACKING_PRODUCT"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x60;SELECT
+    p.*,
+    h.id as harvesthoney_id, h.date_harvest, h.total_honey_kg, h.total_sale_honey_kg, h.lot_number as harvesthoney_lot_number, h.storage,
+    (SELECT
+        JSON_ARRAYAGG(
+                JSON_OBJECT(
+                        &#x27;honeycrop_id&#x27;, hc.id,
+                        &#x27;honeycrop_name&#x27;, hc.name,
+                        &#x27;honey_kg&#x27;, hc.honey_kg,
+                        &#x27;nb_hausses&#x27;, hc.nb_hausses,
+                        &#x27;beehive&#x27;, JSON_OBJECT(
+                                &#x27;beehive_id&#x27;, be.id,
+                                &#x27;beehive_name&#x27;, be.name,
+                                &#x27;bee_type&#x27;, be.bee_type,
+                                &#x27;type_hive&#x27;, be.type_hive
+                       ),
+                        &#x27;beeyard&#x27;, JSON_OBJECT(
+                                &#x27;beeyard_id&#x27;, bya.id,
+                                &#x27;environment&#x27;, bya.environment,
+                                &#x27;beeyard_name&#x27;, bya.name
+                       ),
+                        &#x27;address_beeyard&#x27;, JSON_OBJECT(
+                                &#x27;address_id&#x27;, a.id,
+                                &#x27;street&#x27;, a.street,
+                                &#x27;additional_address&#x27;, a.additional_address,
+                                &#x27;zipcode&#x27;, a.zipcode,
+                                &#x27;city&#x27;, a.city,
+                                &#x27;state&#x27;, a.state,
+                                &#x27;country&#x27;, a.country
+                         ),
+                        &#x27;beekeeper&#x27;, JSON_OBJECT(
+                                &#x27;beekeeper_id&#x27;, bk.id,
+                                &#x27;firstname&#x27;, bk.firstname,
+                                &#x27;lastname&#x27;, bk.lastname,
+                                &#x27;siret&#x27;, bk.siret,
+                                &#x27;napi&#x27;, bk.napi,
+                                &#x27;email&#x27;, bk.email,
+                                &#x27;phone&#x27;, bk.phone,
+                                &#x27;beekeeper_address&#x27;, bk.id_address
+                         ),
+                        &#x27;address_beekeeper&#x27;, JSON_OBJECT(
+                                &#x27;address_id&#x27;, ab.id,
+                                &#x27;street&#x27;, ab.street,
+                                &#x27;additional_address&#x27;, ab.additional_address,
+                                &#x27;zipcode&#x27;, ab.zipcode,
+                                &#x27;city&#x27;, ab.city,
+                                &#x27;state&#x27;, ab.state,
+                                &#x27;country&#x27;, ab.country
+                       )
+                )
+        
+    )
+    FROM rel_harvesthoney_honeycrop AS relhh
+    INNER JOIN honeycrop hc ON hc.id &#x3D; relhh.id_honeycrop
+    INNER JOIN beehive be ON hc.id_beehive &#x3D; be.id
+    INNER JOIN beeyard bya ON be.id_beeyard &#x3D; bya.id
+    INNER JOIN address a ON bya.id_address &#x3D; a.id
+    INNER JOIN beekeeper bk ON bya.id_beekeeper &#x3D; bk.id
+    INNER JOIN address ab ON bk.id_address &#x3D; ab.id
+    WHERE relhh.id_harvesthoney &#x3D; h.id
+  ) AS honeycrops
+  FROM product p
+  INNER JOIN harvesthoney h ON p.id_harvesthoney &#x3D; h.id
+  WHERE p.id &#x3D; ?;
+&#x60;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/store/product/product.repository.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="logger"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>logger</b></span>
+                        <a href="#logger"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Logger(ProductRepository.name)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="109" class="link-to-prism">src/store/product/product.repository.ts:109</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="SQL_DELETE"></a>
+                    <span class="name">
+                        <span ><b>SQL_DELETE</b></span>
+                        <a href="#SQL_DELETE"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x60;DELETE FROM product WHERE id &#x3D; ?&#x60;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/store/product/product.repository.ts:9</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="SQL_INSERT"></a>
+                    <span class="name">
+                        <span ><b>SQL_INSERT</b></span>
+                        <a href="#SQL_INSERT"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x60;INSERT INTO product SET price &#x3D; ?, type &#x3D; ?, weight &#x3D; ?, quantity &#x3D; ?, quantity_sale &#x3D; ?, lot_number &#x3D; ?, DLUO &#x3D; ?, date_packaging &#x3D; ?, id_harvesthoney &#x3D; ?&#x60;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="7" class="link-to-prism">src/store/product/product.repository.ts:7</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="SQL_UPDATE"></a>
+                    <span class="name">
+                        <span ><b>SQL_UPDATE</b></span>
+                        <a href="#SQL_UPDATE"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x60;UPDATE product SET price &#x3D; ?, type &#x3D; ?, weight &#x3D; ?, quantity &#x3D; ?, quantity_sale &#x3D; ?, lot_number &#x3D; ?, DLUO &#x3D; ?, date_packaging &#x3D; ?, id_harvesthoney &#x3D; ? WHERE id &#x3D; ?&#x60;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/store/product/product.repository.ts:8</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { BadRequestException, Injectable, Logger } from &#x27;@nestjs/common&#x27;;
+import { ProductDto } from &#x27;./dto/product.dto&#x27;;
+import { pool } from &#x27;../../database/mysql.config&#x27;;
+
+@Injectable()
+export class ProductRepository {
+  SQL_INSERT &#x3D; &#x60;INSERT INTO product SET price &#x3D; ?, type &#x3D; ?, weight &#x3D; ?, quantity &#x3D; ?, quantity_sale &#x3D; ?, lot_number &#x3D; ?, DLUO &#x3D; ?, date_packaging &#x3D; ?, id_harvesthoney &#x3D; ?&#x60;;
+  SQL_UPDATE &#x3D; &#x60;UPDATE product SET price &#x3D; ?, type &#x3D; ?, weight &#x3D; ?, quantity &#x3D; ?, quantity_sale &#x3D; ?, lot_number &#x3D; ?, DLUO &#x3D; ?, date_packaging &#x3D; ?, id_harvesthoney &#x3D; ? WHERE id &#x3D; ?&#x60;;
+  SQL_DELETE &#x3D; &#x60;DELETE FROM product WHERE id &#x3D; ?&#x60;;
+
+  FIND_ONE &#x3D; &#x60;SELECT * FROM product WHERE id &#x3D; ?&#x60;;
+  FIND_ALL &#x3D; &#x60;SELECT * FROM product&#x60;;
+  FIND_ALL_BY_HARVESTHONEY &#x3D; &#x60;SELECT DISTINCT p.* 
+                      FROM product p 
+                      INNER JOIN harvesthoney h ON p.id_harvesthoney &#x3D; h.id
+                      WHERE h.id &#x3D; ?&#x60;;
+
+  FIND_ALL_BY_BEEKEEPER &#x3D; &#x60;SELECT DISTINCT p.* 
+                      FROM product p 
+                      INNER JOIN harvesthoney h ON p.id_harvesthoney &#x3D; h.id
+                      INNER JOIN rel_harvesthoney_honeycrop relhh ON relhh.id_harvesthoney &#x3D; h.id
+                      INNER JOIN honeycrop hc ON relhh.id_honeycrop &#x3D; hc.id
+                      INNER JOIN beehive be ON hc.id_beehive &#x3D; be.id
+                      INNER JOIN beeyard bya ON be.id_beeyard &#x3D; bya.id
+                      INNER JOIN beekeeper bk ON bya.id_beekeeper &#x3D; bk.id
+                      WHERE bk.id &#x3D; ?&#x60;;
+
+  /*GET_TRACKING_PRODUCT &#x3D; &#x60;SELECT p.*,
+                     h.id as harvesthoney_id, h.date_harvest, h.total_honey_kg, h.total_sale_honey_kg, h.lot_number as harvesthoney_lot_number, h.storage,
+                     hc.id as honeycrop_id, hc.name as honeycrop_name, hc.honey_kg, hc.nb_hausses,
+                     be.id as beehive_id, be.name as beehive_name, be.bee_type, be.type_hive,
+                     bya.id as beeyard_id, bya.environment, bya.name as beeyard_name, bya.id_address as beeyard_address,
+                     bk.id as beekeeper_id, bk.firstname, bk.lastname, bk.siret, bk.napi, bk.email, bk.phone, bk.id_address as beekeeper_address
+                     FROM product p
+                     INNER JOIN harvesthoney h ON p.id_harvesthoney &#x3D; h.id
+                     INNER JOIN rel_harvesthoney_honeycrop relhh ON relhh.id_harvesthoney &#x3D; h.id
+                     INNER JOIN honeycrop hc ON relhh.id_honeycrop &#x3D; hc.id
+                     INNER JOIN beehive be ON hc.id_beehive &#x3D; be.id
+                     INNER JOIN beeyard bya ON be.id_beeyard &#x3D; bya.id
+                     INNER JOIN beekeeper bk ON bya.id_beekeeper &#x3D; bk.id 
+                     WHERE p.id &#x3D; ?&#x60;;*/
+
+  GET_TRACKING_PRODUCT &#x3D; &#x60;SELECT
+    p.*,
+    h.id as harvesthoney_id, h.date_harvest, h.total_honey_kg, h.total_sale_honey_kg, h.lot_number as harvesthoney_lot_number, h.storage,
+    (SELECT
+        JSON_ARRAYAGG(
+                JSON_OBJECT(
+                        &#x27;honeycrop_id&#x27;, hc.id,
+                        &#x27;honeycrop_name&#x27;, hc.name,
+                        &#x27;honey_kg&#x27;, hc.honey_kg,
+                        &#x27;nb_hausses&#x27;, hc.nb_hausses,
+                        &#x27;beehive&#x27;, JSON_OBJECT(
+                                &#x27;beehive_id&#x27;, be.id,
+                                &#x27;beehive_name&#x27;, be.name,
+                                &#x27;bee_type&#x27;, be.bee_type,
+                                &#x27;type_hive&#x27;, be.type_hive
+                       ),
+                        &#x27;beeyard&#x27;, JSON_OBJECT(
+                                &#x27;beeyard_id&#x27;, bya.id,
+                                &#x27;environment&#x27;, bya.environment,
+                                &#x27;beeyard_name&#x27;, bya.name
+                       ),
+                        &#x27;address_beeyard&#x27;, JSON_OBJECT(
+                                &#x27;address_id&#x27;, a.id,
+                                &#x27;street&#x27;, a.street,
+                                &#x27;additional_address&#x27;, a.additional_address,
+                                &#x27;zipcode&#x27;, a.zipcode,
+                                &#x27;city&#x27;, a.city,
+                                &#x27;state&#x27;, a.state,
+                                &#x27;country&#x27;, a.country
+                         ),
+                        &#x27;beekeeper&#x27;, JSON_OBJECT(
+                                &#x27;beekeeper_id&#x27;, bk.id,
+                                &#x27;firstname&#x27;, bk.firstname,
+                                &#x27;lastname&#x27;, bk.lastname,
+                                &#x27;siret&#x27;, bk.siret,
+                                &#x27;napi&#x27;, bk.napi,
+                                &#x27;email&#x27;, bk.email,
+                                &#x27;phone&#x27;, bk.phone,
+                                &#x27;beekeeper_address&#x27;, bk.id_address
+                         ),
+                        &#x27;address_beekeeper&#x27;, JSON_OBJECT(
+                                &#x27;address_id&#x27;, ab.id,
+                                &#x27;street&#x27;, ab.street,
+                                &#x27;additional_address&#x27;, ab.additional_address,
+                                &#x27;zipcode&#x27;, ab.zipcode,
+                                &#x27;city&#x27;, ab.city,
+                                &#x27;state&#x27;, ab.state,
+                                &#x27;country&#x27;, ab.country
+                       )
+                )
+        
+    )
+    FROM rel_harvesthoney_honeycrop AS relhh
+    INNER JOIN honeycrop hc ON hc.id &#x3D; relhh.id_honeycrop
+    INNER JOIN beehive be ON hc.id_beehive &#x3D; be.id
+    INNER JOIN beeyard bya ON be.id_beeyard &#x3D; bya.id
+    INNER JOIN address a ON bya.id_address &#x3D; a.id
+    INNER JOIN beekeeper bk ON bya.id_beekeeper &#x3D; bk.id
+    INNER JOIN address ab ON bk.id_address &#x3D; ab.id
+    WHERE relhh.id_harvesthoney &#x3D; h.id
+  ) AS honeycrops
+  FROM product p
+  INNER JOIN harvesthoney h ON p.id_harvesthoney &#x3D; h.id
+  WHERE p.id &#x3D; ?;
+&#x60;;
+
+  private readonly logger &#x3D; new Logger(ProductRepository.name);
+
+  /**
+   *
+   * @param productDto
+   */
+  async create(productDto: ProductDto) {
+    try {
+      return pool.execute(this.SQL_INSERT, [
+        productDto.price,
+        productDto.type,
+        productDto.weight,
+        productDto.quantity,
+        productDto.quantity_sale,
+        productDto.lot_number,
+        productDto.DLUO,
+        productDto.date_packaging,
+        productDto.harvesthoney.id,
+      ]);
+    } catch (err: any) {
+      this.logger.error(&#x27;Error inserting prodcut data&#x27;, err.stack);
+      throw new BadRequestException(&#x60;Erreur d&#x27;insertion des données&#x60;);
+    }
+  }
+
+  /**
+   *
+   * @param productDto
+   */
+  async update(productDto: ProductDto) {
+    try {
+      return pool.execute(this.SQL_UPDATE, [
+        productDto.price,
+        productDto.type,
+        productDto.weight,
+        productDto.quantity,
+        productDto.quantity_sale,
+        productDto.lot_number,
+        productDto.DLUO,
+        productDto.date_packaging,
+        productDto.harvesthoney.id,
+        productDto.id,
+      ]);
+    } catch (err: any) {
+      this.logger.error(&#x27;Error updating product data&#x27;, err.stack);
+      throw new BadRequestException(
+        &#x60;Erreur lors de la mise à jour des données&#x60;,
+      );
+    }
+  }
+
+  /**
+   *
+   * @param id
+   */
+  async delete(id: number) {
+    try {
+      return await pool.execute(this.SQL_DELETE, [id]);
+    } catch (err: any) {
+      this.logger.error(&#x27;Error deleting product data&#x27;, err.stack);
+      throw new BadRequestException(
+        &#x60;Erreur de suppression des données des données&#x60;,
+      );
+    }
+  }
+
+  /**
+   *
+   * @param id
+   */
+  async findOne(id: number) {
+    try {
+      return await pool.execute(this.FIND_ONE, [id]);
+    } catch (err: any) {
+      this.logger.error(&#x27;Error getting product data&#x27;, err.stack);
+      throw new BadRequestException(
+        &#x60;Erreur lors de la récupération des données&#x60;,
+      );
+    }
+  }
+
+  async findAll() {
+    try {
+      return await pool.execute(this.FIND_ALL);
+    } catch (err: any) {
+      this.logger.error(&#x27;Error getting all product data&#x27;, err.stack);
+      throw new BadRequestException(
+        &#x60;Erreur lors de la récupération des données&#x60;,
+      );
+    }
+  }
+
+  /**
+   *
+   * @param idHarvesthoney
+   */
+  async findAllByHarvesthoney(idHarvesthoney: number) {
+    try {
+      return await pool.execute(this.FIND_ALL_BY_HARVESTHONEY, [
+        idHarvesthoney,
+      ]);
+    } catch (err: any) {
+      this.logger.error(
+        &#x27;Error getting product by harvesthoney data&#x27;,
+        err.stack,
+      );
+      throw new BadRequestException(
+        &#x60;Erreur lors de la récupération des données&#x60;,
+      );
+    }
+  }
+
+  /**
+   *
+   * @param idBeekeeper
+   */
+  async findAllByBeekeeper(idBeekeeper: number) {
+    try {
+      return await pool.execute(this.FIND_ALL_BY_BEEKEEPER, [idBeekeeper]);
+    } catch (err: any) {
+      this.logger.error(&#x27;Error getting product by beekeeper data&#x27;, err.stack);
+      throw new BadRequestException(
+        &#x60;Erreur lors de la récupération des données&#x60;,
+      );
+    }
+  }
+
+  /**
+   *
+   * @param id
+   */
+  async getTracking(id: number) {
+    try {
+      return await pool.execute(this.GET_TRACKING_PRODUCT, [id]);
+    } catch (err: any) {
+      this.logger.error(&#x27;Error getting tracking data&#x27;, err.stack);
+      throw new BadRequestException(
+        &#x60;Erreur lors de la récupération des données&#x60;,
+      );
+    }
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'ProductRepository.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

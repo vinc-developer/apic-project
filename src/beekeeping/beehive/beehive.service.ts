@@ -10,7 +10,7 @@ export class BeehiveService {
    * Création d'un ruche
    * @param beehiveDto
    */
-  async create(beehiveDto: BeehiveDto) {
+  async create(beehiveDto: BeehiveDto): Promise<BeehiveDto> {
     try {
       const [result] = await this.beehiveRepository.create(beehiveDto);
       const id = (result as any).insertId;
@@ -37,7 +37,7 @@ export class BeehiveService {
    * Mise à jour des données de la ruche
    * @param beehiveDto
    */
-  async update(beehiveDto: BeehiveDto) {
+  async update(beehiveDto: BeehiveDto): Promise<BeehiveDto> {
     try {
       await this.beehiveRepository.update(beehiveDto);
       return beehiveDto;
@@ -63,7 +63,7 @@ export class BeehiveService {
    * Récupération des informations d'une ruche
    * @param id
    */
-  async findOne(id: number) {
+  async findOne(id: number): Promise<BeehiveDto> {
     try {
       const [rows] = await this.beehiveRepository.findOne(id);
       if (!rows) {
@@ -86,7 +86,7 @@ export class BeehiveService {
    *
    * @param id
    */
-  async findAllByBeeyard(id: number) {
+  async findAllByBeeyard(id: number): Promise<BeehiveDto[]> {
     try {
       const [rows] = await this.beehiveRepository.findAllByBeeyard(id);
       if (!rows) {
@@ -120,7 +120,7 @@ export class BeehiveService {
    *
    * @param id
    */
-  async findAllByBeekeeper(id: number) {
+  async findAllByBeekeeper(id: number): Promise<BeehiveDto[]> {
     try {
       const [rows] = await this.beehiveRepository.findAllByBeekeeper(id);
       if (!rows) {

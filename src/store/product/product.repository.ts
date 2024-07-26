@@ -25,21 +25,6 @@ export class ProductRepository {
                       INNER JOIN beekeeper bk ON bya.id_beekeeper = bk.id
                       WHERE bk.id = ?`;
 
-  /*GET_TRACKING_PRODUCT = `SELECT p.*,
-                     h.id as harvesthoney_id, h.date_harvest, h.total_honey_kg, h.total_sale_honey_kg, h.lot_number as harvesthoney_lot_number, h.storage,
-                     hc.id as honeycrop_id, hc.name as honeycrop_name, hc.honey_kg, hc.nb_hausses,
-                     be.id as beehive_id, be.name as beehive_name, be.bee_type, be.type_hive,
-                     bya.id as beeyard_id, bya.environment, bya.name as beeyard_name, bya.id_address as beeyard_address,
-                     bk.id as beekeeper_id, bk.firstname, bk.lastname, bk.siret, bk.napi, bk.email, bk.phone, bk.id_address as beekeeper_address
-                     FROM product p
-                     INNER JOIN harvesthoney h ON p.id_harvesthoney = h.id
-                     INNER JOIN rel_harvesthoney_honeycrop relhh ON relhh.id_harvesthoney = h.id
-                     INNER JOIN honeycrop hc ON relhh.id_honeycrop = hc.id
-                     INNER JOIN beehive be ON hc.id_beehive = be.id
-                     INNER JOIN beeyard bya ON be.id_beeyard = bya.id
-                     INNER JOIN beekeeper bk ON bya.id_beekeeper = bk.id 
-                     WHERE p.id = ?`;*/
-
   GET_TRACKING_PRODUCT = `SELECT
     p.*,
     h.id as harvesthoney_id, h.date_harvest, h.total_honey_kg, h.total_sale_honey_kg, h.lot_number as harvesthoney_lot_number, h.storage,

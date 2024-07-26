@@ -15,7 +15,7 @@ export class ClientService {
    * Création d'un client
    * @param clientDto
    */
-  async create(clientDto: ClientDto) {
+  async create(clientDto: ClientDto): Promise<ClientDto> {
     try {
       const address: AddressDto = await this.addressService.create(
         clientDto.address,
@@ -50,7 +50,7 @@ export class ClientService {
    * Mise à jour d'un client
    * @param clientDto
    */
-  async update(clientDto: ClientDto) {
+  async update(clientDto: ClientDto): Promise<ClientDto>  {
     try {
       await this.clientRepository.update(clientDto);
       return clientDto;
@@ -78,7 +78,7 @@ export class ClientService {
    * Récupération d'un client
    * @param id
    */
-  async findOne(id: number) {
+  async findOne(id: number): Promise<ClientDto>  {
     try {
       const [rows] = await this.clientRepository.findOne(id);
       if (!rows) {

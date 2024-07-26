@@ -10,7 +10,7 @@ export class HoneycropService {
    * Création d'une récolte d'une ruche
    * @param honeycropDto
    */
-  async create(honeycropDto: HoneycropDto) {
+  async create(honeycropDto: HoneycropDto): Promise<HoneycropDto> {
     try {
       const [result] = await this.honeycropRepository.create(honeycropDto);
       const id = (result as any).insertId;
@@ -37,7 +37,7 @@ export class HoneycropService {
    * Mise à jour d'une récolte
    * @param honeycropDto
    */
-  async update(honeycropDto: HoneycropDto) {
+  async update(honeycropDto: HoneycropDto): Promise<HoneycropDto> {
     try {
       await this.honeycropRepository.update(honeycropDto);
       return honeycropDto;
@@ -63,7 +63,7 @@ export class HoneycropService {
    * Récupération d'une récolte
    * @param id
    */
-  async findOne(id: number) {
+  async findOne(id: number): Promise<HoneycropDto> {
     try {
       const [rows] = await this.honeycropRepository.findOne(id);
       if (!rows) {

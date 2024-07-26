@@ -15,7 +15,7 @@ export class BeekeeperService {
    * Création d'un apiculteur et de son adresse
    * @param beekeeperDto
    */
-  async create(beekeeperDto: BeekeeperDto) {
+  async create(beekeeperDto: BeekeeperDto): Promise<BeekeeperDto> {
     try {
       const address: AddressDto = await this.addressService.create(
         beekeeperDto.address,
@@ -52,7 +52,7 @@ export class BeekeeperService {
    * Mise à jour de l'apiculteur
    * @param beekeeperDto
    */
-  async update(beekeeperDto: BeekeeperDto) {
+  async update(beekeeperDto: BeekeeperDto): Promise<BeekeeperDto> {
     try {
       await this.beekeeperRepository.update(beekeeperDto);
       return beekeeperDto;
@@ -92,7 +92,7 @@ export class BeekeeperService {
    * Récupération d'un apiculteur par son id et de sont adresse
    * @param id
    */
-  async findOne(id: number) {
+  async findOne(id: number): Promise<BeekeeperDto> {
     try {
       const [rows] = await this.beekeeperRepository.findOne(id);
       if (!rows) {

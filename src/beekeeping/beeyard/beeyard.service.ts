@@ -15,7 +15,7 @@ export class BeeyardService {
    * création d'un rucher et de son adresse
    * @param beeyardDto
    */
-  async create(beeyardDto: BeeyardDto) {
+  async create(beeyardDto: BeeyardDto): Promise<BeeyardDto> {
     try {
       const addressDto: AddressDto = await this.addressService.create(
         beeyardDto.address,
@@ -49,7 +49,7 @@ export class BeeyardService {
    * Mise à jours du rucher
    * @param beeyardDto
    */
-  async update(beeyardDto: BeeyardDto) {
+  async update(beeyardDto: BeeyardDto): Promise<BeeyardDto> {
     try {
       await this.beeyardRepository.update(beeyardDto);
       return beeyardDto;
@@ -77,7 +77,7 @@ export class BeeyardService {
    * Récupération d'un rucher avec son adresse par l'id
    * @param id
    */
-  async findOne(id: number) {
+  async findOne(id: number): Promise<BeeyardDto> {
     try {
       const [rows] = await this.beeyardRepository.findOne(id);
       if (!rows) {
@@ -109,7 +109,7 @@ export class BeeyardService {
    * Récupération de tout les ruchers d'un apiculteur avec les adresses par l'id de l'apiculteur
    * @param id
    */
-  async findAllByIdBeekeeper(id: number) {
+  async findAllByIdBeekeeper(id: number): Promise<BeeyardDto[]> {
     try {
       const [rows] = await this.beeyardRepository.findAllByIdBeekeeper(id);
       if (!rows) {

@@ -17,7 +17,7 @@ export class ProductService {
    * Création d'un produit
    * @param productDto
    */
-  async create(productDto: ProductDto) {
+  async create(productDto: ProductDto): Promise<ProductDto> {
     try {
       const [result] = await this.productRepository.create(productDto);
       const id = (result as any).insertId;
@@ -50,7 +50,7 @@ export class ProductService {
    * Mise à jour du produit
    * @param productDto
    */
-  async update(productDto: ProductDto) {
+  async update(productDto: ProductDto): Promise<ProductDto> {
     try {
       await this.productRepository.update(productDto);
       return productDto;
@@ -75,7 +75,7 @@ export class ProductService {
    * Récupération d'un produit
    * @param id
    */
-  async findOne(id: number) {
+  async findOne(id: number): Promise<ProductDto> {
     try {
       const [row] = await this.productRepository.findOne(id);
       if (!row) {
@@ -91,7 +91,7 @@ export class ProductService {
   /**
    * Récupération de tout les produits créé
    */
-  async findAll() {
+  async findAll(): Promise<ProductDto[]> {
     try {
       const [rows] = await this.productRepository.findAll();
       if (!rows) {
@@ -108,7 +108,7 @@ export class ProductService {
    * Récupération de tout les produits d'une récolte
    * @param idHarvesthoney
    */
-  async findAllByHarvesthoney(idHarvesthoney: number) {
+  async findAllByHarvesthoney(idHarvesthoney: number): Promise<ProductDto[]> {
     try {
       const [rows] =
         await this.productRepository.findAllByHarvesthoney(idHarvesthoney);
@@ -126,7 +126,7 @@ export class ProductService {
    * Récupération de tout les produits d'un apiculteur
    * @param idBeekeeper
    */
-  async findAllByBeekeeper(idBeekeeper: number) {
+  async findAllByBeekeeper(idBeekeeper: number): Promise<ProductDto[]> {
     try {
       const [rows] =
         await this.productRepository.findAllByBeekeeper(idBeekeeper);
@@ -144,7 +144,7 @@ export class ProductService {
    * Permet de tracé l'histoire d'un produit
    * @param id
    */
-  async getTracking(id: number) {
+  async getTracking(id: number): Promise<TrackingDto> {
     try {
       const [rows] = await this.productRepository.getTracking(id);
       if (!rows) {
@@ -237,49 +237,6 @@ export class ProductService {
         }
       }
 
-      /*const honeycrop: HoneycropDto = {
-        id: row.honeycrop_id,
-        name: row.name,
-        honey_kg: row.honey_kg,
-        nb_hausses: row.nb_hausses,
-        beehive: {
-          id: row.beehive_id,
-        },
-      } as HoneycropDto;
-
-      const beehive: BeehiveDto = {
-        id: row.beehive_id,
-        bee_type: row.bee_type,
-        name: row.name,
-        type_hive: row.type_hive,
-        beeyard: { id: row.beeyard_id },
-      } as BeehiveDto;
-
-      const beeyard: BeeyardDto = {
-        id: row.beeyard_id,
-        name: row.beeyard_name,
-        environment: row.environment,
-        address: {
-          id: 0,
-        } as AddressDto,
-        beekeeper: {
-          id: row.beekeeper_id,
-        } as BeekeeperDto,
-      } as BeeyardDto;
-
-      const beekeeper: BeekeeperDto = {
-        id: row.beekeeper_id,
-        firstname: row.firstname,
-        lastname: row.lastname,
-        siret: row.siret,
-        napi: row.napi,
-        email: row.email,
-        phone: row.phone,
-        address: {
-          id: 0,
-        } as AddressDto,
-      } as BeekeeperDto;*/
-
       const trackingDto: TrackingDto = {
         productDto: product,
         harvesthoney: harvesthoney,
@@ -299,7 +256,7 @@ export class ProductService {
    * @param rows
    * @private
    */
-  private async mapperListProductDto(rows: any) {
+  private async mapperListProductDto(rows: any): Promise<ProductDto[]> {
     const products: ProductDto[] = [];
 
     for (const row of rows as any) {
@@ -314,7 +271,7 @@ export class ProductService {
    * @param row
    * @private
    */
-  private async mapperProductDto(row: any) {
+  private async mapperProductDto(row: any): Promise<ProductDto> {
     return {
       id: row.id,
       price: row.price,

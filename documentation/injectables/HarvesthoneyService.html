@@ -1,0 +1,1115 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>bee api&#x27;c project documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">bee api&#x27;c project documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >HarvesthoneyService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/beekeeping/honey/harvesthoney/harvesthoney.service.ts</code>
+        </p>
+
+
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#createHoneycrop" >createHoneycrop</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#deleteHarvesthoney" >deleteHarvesthoney</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#deleteHoneycrop" >deleteHoneycrop</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#findAllByBeehive" >findAllByBeehive</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#findAllByBeekeeper" >findAllByBeekeeper</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#findAllByBeeyard" >findAllByBeeyard</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#update" >update</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(harvesthoneyRepository: <a href="../injectables/HarvesthoneyRepository.html" target="_self">HarvesthoneyRepository</a>, honeycropService: <a href="../injectables/HoneycropService.html" target="_self">HoneycropService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/beekeeping/honey/harvesthoney/harvesthoney.service.ts:15</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>harvesthoneyRepository</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/HarvesthoneyRepository.html" target="_self" >HarvesthoneyRepository</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>honeycropService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/HoneycropService.html" target="_self" >HoneycropService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createHoneycrop"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>createHoneycrop</b></span>
+                        <a href="#createHoneycrop"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createHoneycrop(harvesthoneyDto: <a href="../classes/HarvesthoneyDto.html" target="_self">HarvesthoneyDto</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="25"
+                                    class="link-to-prism">src/beekeeping/honey/harvesthoney/harvesthoney.service.ts:25</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Création des récoltes et du stockage</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>harvesthoneyDto</td>
+                                            <td>
+                                                            <code><a href="../classes/HarvesthoneyDto.html" target="_self" >HarvesthoneyDto</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteHarvesthoney"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>deleteHarvesthoney</b></span>
+                        <a href="#deleteHarvesthoney"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>deleteHarvesthoney(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="91"
+                                    class="link-to-prism">src/beekeeping/honey/harvesthoney/harvesthoney.service.ts:91</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Suppression du stockage si pplus de récolte</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteHoneycrop"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>deleteHoneycrop</b></span>
+                        <a href="#deleteHoneycrop"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>deleteHoneycrop(relHarvestHoneycropDto: <a href="../classes/RelHarvestHoneycropDto.html" target="_self">RelHarvestHoneycropDto</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="103"
+                                    class="link-to-prism">src/beekeeping/honey/harvesthoney/harvesthoney.service.ts:103</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Suppression d&#39;une récolte et de son association au stockage</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>relHarvestHoneycropDto</td>
+                                            <td>
+                                                            <code><a href="../classes/RelHarvestHoneycropDto.html" target="_self" >RelHarvestHoneycropDto</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="findAllByBeehive"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>findAllByBeehive</b></span>
+                        <a href="#findAllByBeehive"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>findAllByBeehive(idBeehive: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="122"
+                                    class="link-to-prism">src/beekeeping/honey/harvesthoney/harvesthoney.service.ts:122</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Récupération de toute les récoltes d&#39;une ruche</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>idBeehive</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="findAllByBeekeeper"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>findAllByBeekeeper</b></span>
+                        <a href="#findAllByBeekeeper"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>findAllByBeekeeper(idBeekeeper: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="222"
+                                    class="link-to-prism">src/beekeeping/honey/harvesthoney/harvesthoney.service.ts:222</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Récupération de toute les récoltes d&#39;un apiculteur</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>idBeekeeper</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="findAllByBeeyard"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>findAllByBeeyard</b></span>
+                        <a href="#findAllByBeeyard"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>findAllByBeeyard(idBeeyard: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="168"
+                                    class="link-to-prism">src/beekeeping/honey/harvesthoney/harvesthoney.service.ts:168</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Récupération de toutes les récolte d&#39;un rucher</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>idBeeyard</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="update"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>update</b></span>
+                        <a href="#update"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>update(harvesthoneyDto: <a href="../classes/HarvesthoneyDto.html" target="_self">HarvesthoneyDto</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="78"
+                                    class="link-to-prism">src/beekeeping/honey/harvesthoney/harvesthoney.service.ts:78</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Mise à jour des données de stockage des récoltes</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>harvesthoneyDto</td>
+                                            <td>
+                                                            <code><a href="../classes/HarvesthoneyDto.html" target="_self" >HarvesthoneyDto</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpException, HttpStatus, Injectable } from &#x27;@nestjs/common&#x27;;
+import { HarvesthoneyRepository } from &#x27;./harvesthoney.repository&#x27;;
+import { HoneycropService } from &#x27;../honeycrop/honeycrop.service&#x27;;
+import { RelHarvestHoneycropDto } from &#x27;./dto/relHarvestHoneycropDto.dto&#x27;;
+import { HarvesthoneyDto } from &#x27;./dto/harvesthoney.dto&#x27;;
+import { HoneycropDto } from &#x27;../honeycrop/dto/honeycrop.dto&#x27;;
+import { HarvesthoneyByBeehiveDto } from &#x27;./dto/harvesthoneyByBeehive.dto&#x27;;
+import { BeeyardDto } from &#x27;../../beeyard/dto/beeyard.dto&#x27;;
+import { HarvesthoneyByBeeyardDto } from &#x27;./dto/harvesthoneyByBeeyard.dto&#x27;;
+import { BeekeeperDto } from &#x27;../../beekeeper/dto/beekeeper.dto&#x27;;
+import { AddressDto } from &#x27;../../address/dto/address.dto&#x27;;
+import { HarvesthoneyByBeekeeperDto } from &#x27;./dto/harvesthoneyBeBeekeeper.dto&#x27;;
+
+@Injectable()
+export class HarvesthoneyService {
+  constructor(
+    private readonly harvesthoneyRepository: HarvesthoneyRepository,
+    private readonly honeycropService: HoneycropService,
+  ) {}
+
+  /**
+   * Création des récoltes et du stockage
+   * @param harvesthoneyDto
+   */
+  async createHoneycrop(harvesthoneyDto: HarvesthoneyDto) {
+    try {
+      let id &#x3D; harvesthoneyDto.id;
+      let total_honey_kg &#x3D; harvesthoneyDto.total_honey_kg;
+
+      // controle si c&#x27;est la première récolte, si oui création du stockage
+      if (!id || id &#x3D;&#x3D;&#x3D; 0) {
+        const [result] &#x3D;
+          await this.harvesthoneyRepository.create(harvesthoneyDto);
+        id &#x3D; (result as any).insertId;
+        if (!id) {
+          throw new HttpException(
+            &#x60;Erreur dans la création de la récolte&#x60;,
+            HttpStatus.BAD_REQUEST,
+          );
+        }
+      }
+
+      // création de la récolte
+      const honeycrop: HoneycropDto &#x3D; await this.honeycropService.create(
+        harvesthoneyDto.honeycrops[0],
+      );
+
+      // création de la relation entre le stockage et la récolte
+      const relHarvesthoney: RelHarvestHoneycropDto &#x3D; {
+        idHarvestHoney: id,
+        idHoneycrop: honeycrop.id,
+      };
+      await this.harvesthoneyRepository.createRelHoneycrop(relHarvesthoney);
+
+      // mise à jour du nombres de kilo récoltés
+      total_honey_kg +&#x3D; honeycrop.honey_kg;
+      const harvesthoney: HarvesthoneyDto &#x3D; {
+        id: id,
+        date_harvest: harvesthoneyDto.date_harvest,
+        total_honey_kg: total_honey_kg,
+        total_sale_honey_kg: harvesthoneyDto.total_sale_honey_kg,
+        lot_number: harvesthoneyDto.lot_number,
+        storage: harvesthoneyDto.storage,
+        honeycrops: [honeycrop],
+      };
+      await this.update(harvesthoney);
+
+      return harvesthoney;
+    } catch (err: any) {
+      throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  /**
+   * Mise à jour des données de stockage des récoltes
+   * @param harvesthoneyDto
+   */
+  async update(harvesthoneyDto: HarvesthoneyDto) {
+    try {
+      await this.harvesthoneyRepository.update(harvesthoneyDto);
+      return harvesthoneyDto;
+    } catch (err: any) {
+      throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  /**
+   * Suppression du stockage si pplus de récolte
+   * @param id
+   */
+  async deleteHarvesthoney(id: number) {
+    try {
+      return await this.harvesthoneyRepository.delete(id);
+    } catch (err: any) {
+      throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  /**
+   * Suppression d&#x27;une récolte et de son association au stockage
+   * @param relHarvestHoneycropDto
+   */
+  async deleteHoneycrop(relHarvestHoneycropDto: RelHarvestHoneycropDto) {
+    try {
+      // suppression de la relation
+      await this.harvesthoneyRepository.deleteRelHoneycrop(
+        relHarvestHoneycropDto,
+      );
+      //suppression de la récolte
+      return await this.honeycropService.delete(
+        relHarvestHoneycropDto.idHoneycrop,
+      );
+    } catch (err: any) {
+      throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  /**
+   * Récupération de toute les récoltes d&#x27;une ruche
+   * @param idBeehive
+   */
+  async findAllByBeehive(idBeehive: number) {
+    try {
+      const [rows] &#x3D;
+        await this.harvesthoneyRepository.findAllByBeehive(idBeehive);
+      if (!rows) {
+        return undefined;
+      }
+
+      const harvestHoneys: HarvesthoneyByBeehiveDto &#x3D; {
+        id: rows[0].id,
+        date_harvest: rows[0].date_harvest,
+        total_honey_kg: rows[0].total_honey_kg,
+        total_sale_honey_kg: rows[0].total_sale_honey_kg,
+        lot_number: rows[0].lot_number,
+        storage: rows[0].storage,
+        beehive: {
+          id: rows[0].beehive_id,
+          name: rows[0].beehive_name,
+          bee_type: rows[0].bee_type,
+          type_hive: rows[0].type_hive,
+          beeyard: {
+            id: rows[0].id_beeyard,
+          } as BeeyardDto,
+        },
+        honeycrops: [],
+      };
+
+      for (const row of rows as any) {
+        harvestHoneys.honeycrops.push({
+          id: row.honeycrop_id,
+          name: row.honeycrop_name,
+          honey_kg: row.honey_kg,
+          nb_hausses: row.nb_hausses,
+        } as HoneycropDto);
+      }
+
+      return harvestHoneys;
+    } catch (err: any) {
+      throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  /**
+   * Récupération de toutes les récolte d&#x27;un rucher
+   * @param idBeeyard
+   */
+  async findAllByBeeyard(idBeeyard: number) {
+    try {
+      const [rows] &#x3D;
+        await this.harvesthoneyRepository.findAllByBeeyard(idBeeyard);
+      if (!rows) {
+        return undefined;
+      }
+
+      const harvestHoneys: HarvesthoneyByBeeyardDto &#x3D; {
+        id: rows[0].id,
+        date_harvest: rows[0].date_harvest,
+        total_honey_kg: rows[0].total_honey_kg,
+        total_sale_honey_kg: rows[0].total_sale_honey_kg,
+        lot_number: rows[0].lot_number,
+        storage: rows[0].storage,
+        beeyard: {
+          id: rows[0].id_beeyard,
+          name: rows[0].beeyard_name,
+          environment: rows[0].environment,
+          address: {
+            id: rows[0].beeyard_address,
+          } as AddressDto,
+          beekeeper: {
+            id: rows[0].id_beekeeper,
+          } as BeekeeperDto,
+        },
+        honeycrops: [],
+      };
+
+      for (const row of rows as any) {
+        harvestHoneys.honeycrops.push({
+          id: row.honeycrop_id,
+          name: row.honeycrop_name,
+          honey_kg: row.honey_kg,
+          nb_hausses: row.nb_hausses,
+          beehive: {
+            id: row.beehive_id,
+            name: row.beehive_name,
+            bee_type: row.bee_type,
+            type_hive: row.type_hive,
+          },
+        } as HoneycropDto);
+      }
+
+      return harvestHoneys;
+    } catch (err: any) {
+      throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  /**
+   * Récupération de toute les récoltes d&#x27;un apiculteur
+   * @param idBeekeeper
+   */
+  async findAllByBeekeeper(idBeekeeper: number) {
+    try {
+      const [rows] &#x3D;
+        await this.harvesthoneyRepository.findAllByBeekeeper(idBeekeeper);
+      if (!rows) {
+        return undefined;
+      }
+
+      const harvestHoneys: HarvesthoneyByBeekeeperDto &#x3D; {
+        id: rows[0].id,
+        date_harvest: rows[0].date_harvest,
+        total_honey_kg: rows[0].total_honey_kg,
+        total_sale_honey_kg: rows[0].total_sale_honey_kg,
+        lot_number: rows[0].lot_number,
+        storage: rows[0].storage,
+        beekeeper: {
+          id: rows[0].beekeeper_id,
+          firstname: rows[0].firstname,
+          lastname: rows[0].lastname,
+          siret: rows[0].siret,
+          napi: rows[0].napi,
+          email: rows[0].email,
+          phone: rows[0].phone,
+          address: {
+            id: rows[0].beekeeper_address,
+          } as AddressDto,
+        },
+        honeycrops: [],
+      };
+
+      for (const row of rows as any) {
+        harvestHoneys.honeycrops.push({
+          id: row.honeycrop_id,
+          name: row.honeycrop_name,
+          honey_kg: row.honey_kg,
+          nb_hausses: row.nb_hausses,
+          beehive: {
+            id: row.beehive_id,
+            name: row.beehive_name,
+            bee_type: row.bee_type,
+            type_hive: row.type_hive,
+            beeyard: {
+              id: row.beeyard_id,
+              name: row.beeyard_name,
+              environment: row.environment,
+              address: {
+                id: row.beeyard_address,
+              } as AddressDto,
+            },
+          },
+        } as HoneycropDto);
+      }
+
+      return harvestHoneys;
+    } catch (err: any) {
+      throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'HarvesthoneyService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

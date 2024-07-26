@@ -22,7 +22,9 @@ export class HarvesthoneyService {
    * Création des récoltes et du stockage
    * @param harvesthoneyDto
    */
-  async createHoneycrop(harvesthoneyDto: HarvesthoneyDto) {
+  async createHoneycrop(
+    harvesthoneyDto: HarvesthoneyDto,
+  ): Promise<HarvesthoneyDto> {
     try {
       let id = harvesthoneyDto.id;
       let total_honey_kg = harvesthoneyDto.total_honey_kg;
@@ -75,7 +77,7 @@ export class HarvesthoneyService {
    * Mise à jour des données de stockage des récoltes
    * @param harvesthoneyDto
    */
-  async update(harvesthoneyDto: HarvesthoneyDto) {
+  async update(harvesthoneyDto: HarvesthoneyDto): Promise<HarvesthoneyDto> {
     try {
       await this.harvesthoneyRepository.update(harvesthoneyDto);
       return harvesthoneyDto;
@@ -119,7 +121,7 @@ export class HarvesthoneyService {
    * Récupération de toute les récoltes d'une ruche
    * @param idBeehive
    */
-  async findAllByBeehive(idBeehive: number) {
+  async findAllByBeehive(idBeehive: number): Promise<HarvesthoneyByBeehiveDto> {
     try {
       const [rows] =
         await this.harvesthoneyRepository.findAllByBeehive(idBeehive);
@@ -165,7 +167,7 @@ export class HarvesthoneyService {
    * Récupération de toutes les récolte d'un rucher
    * @param idBeeyard
    */
-  async findAllByBeeyard(idBeeyard: number) {
+  async findAllByBeeyard(idBeeyard: number): Promise<HarvesthoneyByBeeyardDto> {
     try {
       const [rows] =
         await this.harvesthoneyRepository.findAllByBeeyard(idBeeyard);
@@ -219,7 +221,9 @@ export class HarvesthoneyService {
    * Récupération de toute les récoltes d'un apiculteur
    * @param idBeekeeper
    */
-  async findAllByBeekeeper(idBeekeeper: number) {
+  async findAllByBeekeeper(
+    idBeekeeper: number,
+  ): Promise<HarvesthoneyByBeekeeperDto> {
     try {
       const [rows] =
         await this.harvesthoneyRepository.findAllByBeekeeper(idBeekeeper);

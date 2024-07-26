@@ -31,7 +31,7 @@ export class AddressService {
    * Mise à jour d'une adresse
    * @param addressDto
    */
-  async update(addressDto: AddressDto) {
+  async update(addressDto: AddressDto): Promise<AddressDto> {
     try {
       await this.addressRepository.update(addressDto);
       return addressDto;
@@ -57,7 +57,7 @@ export class AddressService {
    * Récupération d'une adresse
    * @param id
    */
-  async findOne(id: number) {
+  async findOne(id: number): Promise<AddressDto> {
     try {
       const [rows] = await this.addressRepository.findOne(id);
       if (!rows) {
