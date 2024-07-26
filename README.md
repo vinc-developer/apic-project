@@ -35,7 +35,7 @@ api-project
 ![Schema de base de donnée](public/schema_bdd.png)
 
 ## Documentation
-pour plus de détail, consulter [la documentation du projet](documentation/index.html)
+pour plus de détail, consulter [la documentation du projet](https://vinc-developer.github.io/apic-project/documentation/)
 
 ## Installation
 Installer la base de donnée, run script: script.sql
