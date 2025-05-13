@@ -8,10 +8,10 @@ import { BeeyardModule } from './beekeeping/beeyard/beeyard.module';
 import { BeehiveModule } from './beekeeping/beehive/beehive.module';
 import { HoneycropModule } from './beekeeping/honey/honeycrop/honeycrop.module';
 import { HarvesthoneyModule } from './beekeeping/honey/harvesthoney/harvesthoney.module';
-import { ClientController } from './store/client/client.controller';
-import { ClientService } from './store/client/client.service';
 import { ClientModule } from './store/client/client.module';
 import { ProductModule } from './store/product/product.module';
+import { OrderModule } from './store/order/order.module';
+import { PaymentModule } from './store/payment/payment.module';
 
 @Module({
   imports: [
@@ -26,6 +26,8 @@ import { ProductModule } from './store/product/product.module';
     HarvesthoneyModule,
     ClientModule,
     ProductModule,
+    OrderModule,
+    PaymentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

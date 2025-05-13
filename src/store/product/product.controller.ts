@@ -168,7 +168,7 @@ export class ProductController {
   }
 
   /**
-   *
+   * BASE DE DONNEE
    * @param id
    * @param res
    */
@@ -183,6 +183,33 @@ export class ProductController {
 
     try {
       const products = await this.productService.getTracking(productId);
+      res.status(HttpStatus.OK).json(products);
+    } catch (err: any) {
+      res.status(HttpStatus.BAD_REQUEST).json({
+        message: `Erreur lors de la récupération des données : ${err.message}`,
+      });
+    }
+  }
+
+   /**
+   *
+   * @param id
+   * @param res
+   */
+  @Get('tracabilite/:numerolot')
+  async getTracabilite(
+    @Param('numerolot') numerolot: string,
+    @Res() res: Response,
+  ) {
+    const productId: number = Number(numerolot);
+    if (isNaN(productId)) {
+      res
+        .status(HttpStatus.BAD_REQUEST)
+        .json({ message: 'Identifiant du produit invalide' });
+    }
+
+    try {
+      const products = await this.productService.getTracabilite(productId);
       res.status(HttpStatus.OK).json(products);
     } catch (err: any) {
       res.status(HttpStatus.BAD_REQUEST).json({

@@ -8,10 +8,15 @@ import { AddressDto } from '../../beekeeping/address/dto/address.dto';
 import { BeekeeperDto } from '../../beekeeping/beekeeper/dto/beekeeper.dto';
 import { TrackingDto } from './dto/tracking.dto';
 import { ProductRepository } from './product.repository';
+import { HttpModule, HttpService } from '@nestjs/axios';
+import { firstValueFrom, lastValueFrom } from 'rxjs';
 
 @Injectable()
 export class ProductService {
-  constructor(private readonly productRepository: ProductRepository) {}
+  constructor(
+    private readonly productRepository: ProductRepository,
+    private readonly httpService: HttpService,
+  ) {}
 
   /**
    * Création d'un produit
@@ -136,6 +141,27 @@ export class ProductService {
 
       return await this.mapperListProductDto(rows);
     } catch (err: any) {
+      throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  async getTracabilite(numerolot: number) {
+    const url = `https://web.beeperf.com/api/tracabilite/numero-lot/${numerolot}`;
+    const headers = {
+      'Content-Type': 'application/json',
+      'x-api-key':
+        'hAnKaECzT9X7mMpJFUdTB8tRiFE2ea1fafe7263f49d5a5275c0a6c3fef47',
+    };
+
+    try {
+      console.log(url);
+      const response = await firstValueFrom(
+        this.httpService.get(url, { headers }),
+      );
+      console.log(response);
+      return response.data;
+    } catch (err: any) {
+      console.error('Erreur complète :', JSON.stringify(err));
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }
   }
